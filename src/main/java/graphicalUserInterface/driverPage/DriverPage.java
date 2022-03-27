@@ -1,10 +1,7 @@
 package graphicalUserInterface.driverPage;
 
-//import dataStructures.ComandaEfectuata;
 import dataStructures.Driver;
 import graphicalUserInterface.AuthentificationGUI;
-//import jsonClasses.JSONEditProfile;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +22,7 @@ public class DriverPage {
     private JButton list;
     private JButton add;
     private JButton inapoi;
-    private boolean b1,b2,b3,b4;
+    private boolean b1,b2;
 
     public static Driver getSofer(){
         return sofer;
@@ -49,7 +46,7 @@ public class DriverPage {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm Exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else
@@ -62,19 +59,19 @@ public class DriverPage {
         frame.getContentPane().setBackground(new Color(255, 165, 0));
 
 
-        edit=new JButton("Editare profil");
+        edit=new JButton("Edit profile");
         edit.setForeground(new Color(0, 0, 128));
         edit.setFont(new Font("Times New Roman", Font.BOLD, 16));
         edit.setBounds(10, 35, 198, 34);
-        list=new JButton("  Comenzile mele");
+        list=new JButton("  My Orders");
         list.setForeground(new Color(0, 0, 128));
         list.setFont(new Font("Times New Roman", Font.BOLD, 16));
         list.setBounds(10, 106, 198, 34);
-        add=new JButton("Preia o comanda");
+        add=new JButton("Take an Order");
         add.setFont(new Font("Times New Roman", Font.BOLD, 16));
         add.setForeground(new Color(0, 0, 128));
         add.setBounds(10, 180, 198, 34);
-        inapoi=new JButton("   Inapoi      ");
+        inapoi=new JButton("   Back      ");
         inapoi.setForeground(new Color(0, 0, 128));
         inapoi.setFont(new Font("Times New Roman", Font.BOLD, 16));
         inapoi.setBounds(10, 253, 198, 34);
@@ -86,7 +83,6 @@ public class DriverPage {
                 AuthentificationGUI.afiseaza();
             }
         });
-
 
         JPanel titlu=new JPanel();
         titlu.setBackground(new Color(0, 0, 128));
@@ -129,7 +125,6 @@ public class DriverPage {
         frame.getContentPane().add(aux);
 
     }
-
 
     public static JFrame getFrame() {
         return frame;

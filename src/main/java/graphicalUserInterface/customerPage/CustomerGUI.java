@@ -1,10 +1,7 @@
 package graphicalUserInterface.customerPage;
 
-
 import dataStructures.Client;
-
 import graphicalUserInterface.AuthentificationGUI;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,16 +18,38 @@ public class CustomerGUI {
     private static JFrame f;
     private JButton b1,b2,b3,b4;
     private JLabel l1,l2;
+    private boolean flag1;
+    private static boolean flagFunction;
 
+    public static boolean isFlagFunction() {
+        return flagFunction;
+    }
+
+    public boolean isFlag1() {
+        return flag1;
+    }
+
+    public static void afiseaza(){
+        flagFunction = true;
+        f.setVisible(true);
+    }
 
     public CustomerGUI(Client c){
         client=c;
         f = new JFrame("Customer's page");
         f.getContentPane().setBackground(new Color(44, 224, 174));
-        b1 = new JButton("Comenzile mele");
-        b2 = new JButton("Comanda noua");
-        b3 = new JButton("Scrieti recenzie");
-        b4 = new JButton("Inapoi");
+        b1 = new JButton("My Orders");
+        b2 = new JButton("New Order");
+        b3 = new JButton("Write a review");
+        b3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                flag1 = true;
+                f.setVisible(false);
+                new Review(c);
+            }
+        });
+        b4 = new JButton("Back");
         l1 = new JLabel("Customer's page");
         l1.setBounds(225, 0, 300, 50);
         l1.setFont(new Font("Berlin Sans FB Demi",Font.BOLD, 25));
@@ -67,7 +86,7 @@ public class CustomerGUI {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(f,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm Exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else

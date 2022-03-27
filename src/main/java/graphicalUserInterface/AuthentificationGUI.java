@@ -4,12 +4,10 @@ import dataStructures.Client;
 import dataStructures.Driver;
 import graphicalUserInterface.customerPage.CustomerGUI;
 import graphicalUserInterface.driverPage.DriverPage;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -34,13 +32,13 @@ public class AuthentificationGUI  {
 
     public AuthentificationGUI() {
 
-        f = new JFrame("inregistrare");//frame
+        f = new JFrame("registration");//frame
         f.getContentPane().setBackground(new Color(255, 165, 10));
-        l1 = new JLabel("Numele complet:");//eticheta indicatoare camp pentru nume complet
-        l2 = new JLabel("Parola:");//eticheta indicatoare camp pentru parola
+        l1 = new JLabel("Name:");//eticheta indicatoare camp pentru nume complet
+        l2 = new JLabel("Password:");//eticheta indicatoare camp pentru parola
         l3 = new JLabel("Welcome to Ride-Sharing app! ");//eticheta indicatoare titlu
-        l4 = new JLabel(" Va rugam sa completati spatiile albe");//eticheta indrumare
-        b = new JButton("autentificare");//button
+        l4 = new JLabel(" Please fill in the blanks");//eticheta indrumare
+        b = new JButton("Login");//button
         t1 = new JTextField();//camp nume
         t2 = new JPasswordField();//camp parola
         l3.setBounds(175, 0, 300, 50);
@@ -76,8 +74,8 @@ public class AuthentificationGUI  {
                     }
                     else
                         JOptionPane.showMessageDialog(new JFrame(),
-                                "Nu sunteti inregistrat.",
-                                "Persoana neautentificata",
+                                "You are not registered.",
+                                "Login failed",
                                 JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -131,7 +129,7 @@ public class AuthentificationGUI  {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(f,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm Exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else
