@@ -33,7 +33,7 @@ public class AuthentificationGUI  {
     public AuthentificationGUI() {
 
         f = new JFrame("registration");//frame
-        f.getContentPane().setBackground(new Color(255, 165, 10));
+        f.getContentPane().setBackground(new Color(75, 180, 240));
         l1 = new JLabel("Name:");//eticheta indicatoare camp pentru nume complet
         l2 = new JLabel("Password:");//eticheta indicatoare camp pentru parola
         l3 = new JLabel("Welcome to Ride-Sharing app! ");//eticheta indicatoare titlu
@@ -83,11 +83,11 @@ public class AuthentificationGUI  {
 
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/main/resources/drive.jpg"));
+            img = ImageIO.read(new File("src/main/resources/uber.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(250, 250,Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(450, 250,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(dimg);
         l5 = new JLabel(icon);
         l5.setBounds(80, 80, 250, 250);
@@ -106,7 +106,7 @@ public class AuthentificationGUI  {
         JPanel panel_2 = new JPanel();
         panel_2.setLayout(null);
         panel_2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        panel_2.setBackground(new Color(0, 100, 0));
+        panel_2.setBackground(new Color(13, 24, 32));
         panel_2.setBounds(400,100, 210,40);
         f.getContentPane().add(panel_2);
         panel_2.add(t1);
@@ -114,7 +114,7 @@ public class AuthentificationGUI  {
         JPanel panel_4 = new JPanel();
         panel_4.setLayout(null);
         panel_4.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        panel_4.setBackground(new Color(0, 100, 0));
+        panel_4.setBackground(new Color(13, 24, 32));
         panel_4.setBounds(400,200, 210,40);
         f.getContentPane().add(panel_4);
         panel_4.add(t2);

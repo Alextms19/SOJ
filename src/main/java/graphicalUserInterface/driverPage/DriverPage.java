@@ -22,7 +22,7 @@ public class DriverPage {
     private JButton list;
     private JButton add;
     private JButton inapoi;
-    private boolean b1,b2;
+    private boolean b1,b2,b3;
 
     public static Driver getSofer(){
         return sofer;
@@ -32,6 +32,7 @@ public class DriverPage {
     {
         b1=false;
         b2=false;
+        b3=false;
         initialize();
     }
 
@@ -102,6 +103,14 @@ public class DriverPage {
         jp.setBounds(370, 87, 218, 329);
         jp.setLayout(null);
         jp.add(edit);
+        jp.add(edit);
+        edit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                b3=true;
+                new EditProfileGUI(sofer);
+            }
+        });
         jp.add(list);
         jp.add(add);
         jp.add(inapoi);
