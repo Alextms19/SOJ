@@ -18,7 +18,7 @@ public class CustomerGUI {
     private static JFrame f;
     private JButton b1,b2,b3,b4;
     private JLabel l1,l2;
-    private boolean flag1, flag2;
+    private boolean flag1, flag2, flag3;
     private static boolean flagFunction, flagFunction1;
 
     public static boolean isFlagFunction() {
@@ -37,6 +37,10 @@ public class CustomerGUI {
         return flag2;
     }
 
+    public boolean isFlag3() {
+        return flag3;
+    }
+
     public static void afiseaza(){
         flagFunction = true;
         f.setVisible(true);
@@ -52,6 +56,14 @@ public class CustomerGUI {
         f = new JFrame("Customer's page");
         f.getContentPane().setBackground(new Color(44, 224, 174));
         b1 = new JButton("My Orders");
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                flag3 = true;
+                f.setVisible(false);
+                new MyOrders(c);
+            }
+        });
         b2 = new JButton("New Order");
         b3 = new JButton("Write a review");
         b3.addActionListener(new ActionListener() {
