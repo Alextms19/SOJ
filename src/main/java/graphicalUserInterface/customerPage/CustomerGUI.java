@@ -18,20 +18,33 @@ public class CustomerGUI {
     private static JFrame f;
     private JButton b1,b2,b3,b4;
     private JLabel l1,l2;
-    private boolean flag1;
-    private static boolean flagFunction;
+    private boolean flag1, flag2;
+    private static boolean flagFunction, flagFunction1;
 
     public static boolean isFlagFunction() {
         return flagFunction;
+    }
+
+    public static boolean isFlagFunction1() {
+        return flagFunction1;
     }
 
     public boolean isFlag1() {
         return flag1;
     }
 
+    public boolean isFlag2() {
+        return flag2;
+    }
+
     public static void afiseaza(){
         flagFunction = true;
         f.setVisible(true);
+    }
+
+    public static void ascunde(){
+        flagFunction1 = true;
+        f.setVisible(false);
     }
 
     public CustomerGUI(Client c){
@@ -82,6 +95,13 @@ public class CustomerGUI {
         f.add(b2);
         f.add(b3);
         f.add(b4);
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                flag2 = true;
+                f.setVisible(false);
+                new NewOrder(client);
+            }
+        });
         f.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
