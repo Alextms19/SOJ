@@ -1,10 +1,17 @@
 package graphicalUserInterface;
 
+import dataStructures.Client;
+import dataStructures.Driver;
+import graphicalUserInterface.customerPage.CustomerGUI;
+import graphicalUserInterface.driverPage.DriverPage;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -22,6 +29,7 @@ public class AuthentificationGUI  {
     private JButton b;//button
     private JTextField t1;//camp nume
     private JPasswordField t2;//camp parola
+    private static boolean flagFunction;
 
 
     public AuthentificationGUI() {
@@ -50,6 +58,30 @@ public class AuthentificationGUI  {
         l4.setBounds(100,50,500,30);
         l4.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
         l4.setForeground(Color.blue);
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String s1 = t1.getText();
+                String s2 = t2.getText();
+                Client c=new Client(s1,s2);
+                Driver s=new Driver(s1,s2);
+                resetFields();
+                if(e.getSource() == b) {
+                    if (c.getPassword().equals("maxim") && (c.getUsername().equals("ana"))) {
+                        f.setVisible(false);
+                        new CustomerGUI(c);
+                    }
+                    else if(s.getPassword().equals("maximm") && (c.getUsername().equals("anaa"))) {
+                        f.setVisible(false);
+                        new DriverPage(s);
+                    }
+                    else
+                        JOptionPane.showMessageDialog(new JFrame(),
+                                "Nu sunteti inregistrat.",
+                                "Persoana neautentificata",
+                                JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
 
         BufferedImage img = null;
         try {
@@ -108,6 +140,16 @@ public class AuthentificationGUI  {
         });
         f.setSize(700,400);
         f.setLayout(null);
+        f.setVisible(true);
+    }
+
+    public void resetFields(){
+        t1.setText("");
+        t2.setText("");
+    }
+
+    public static void afiseaza(){
+        flagFunction = true;
         f.setVisible(true);
     }
 
