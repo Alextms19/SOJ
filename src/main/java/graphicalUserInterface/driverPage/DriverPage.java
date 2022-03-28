@@ -2,6 +2,8 @@ package graphicalUserInterface.driverPage;
 
 import dataStructures.Driver;
 import graphicalUserInterface.AuthentificationGUI;
+import jsonClasses.JSONEditProfile;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class DriverPage {
@@ -33,6 +37,14 @@ public class DriverPage {
         b1=false;
         b2=false;
         b3=false;
+        ArrayList<Driver> soferi= JSONEditProfile.getDriver();
+        Iterator<Driver> it=soferi.iterator();
+        while(it.hasNext()) {
+            Driver aux = it.next();
+            if (aux.getUsername().equals(s.getUsername())) {
+                sofer = aux;
+            }
+        }
         initialize();
     }
 

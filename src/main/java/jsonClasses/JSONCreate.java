@@ -9,7 +9,13 @@ import java.io.IOException;
 import static jsonClasses.JSONFile.encodePassword;
 
 public class JSONCreate {
-    private static void createCustomerFile() {
+
+    public static void secure(){
+        createCustomerFile("src/main/resources/customers.json");
+        createDriverFile("src/main/resources/drivers.json");
+    }
+
+    private static void createCustomerFile(String filename) {
         JSONObject obj1 = new JSONObject();
         obj1.put("username", "maria");
         obj1.put("password", encodePassword("maria","popescu"));
@@ -69,7 +75,7 @@ public class JSONCreate {
             e.printStackTrace();
         }
     }
-    private static void createDriverFile() {
+    private static void createDriverFile(String filename) {
         JSONObject obj1 = new JSONObject();
         obj1.put("username", "alex");
         obj1.put("password", encodePassword("alex","pop"));

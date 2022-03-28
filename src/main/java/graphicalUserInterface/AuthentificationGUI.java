@@ -4,6 +4,7 @@ import dataStructures.Client;
 import dataStructures.Driver;
 import graphicalUserInterface.customerPage.CustomerGUI;
 import graphicalUserInterface.driverPage.DriverPage;
+import jsonClasses.JSONCreate;
 import jsonClasses.JSONFile;
 
 import javax.imageio.ImageIO;
@@ -58,7 +59,7 @@ public class AuthentificationGUI  {
     }
 
     public AuthentificationGUI() {
-
+        JSONCreate.secure();
         f = new JFrame("registration");//frame
         f.getContentPane().setBackground(new Color(75, 180, 240));
         l1 = new JLabel("Name:");//eticheta indicatoare camp pentru nume complet
