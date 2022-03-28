@@ -4,6 +4,7 @@ public class Client extends User {
     private String address;
     private String phoneNumber;
 
+
     public Client(String username, String password) {
         super(username, password);
     }
