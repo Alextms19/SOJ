@@ -1,33 +1,40 @@
 package dataStructures;
 
-public class Client extends User{
-    private String Adresa;
-    private String telefon;
-    public Client(String username, String password){
-        super(username,password);
+public class Client extends User {
+    private String address;
+    private String phoneNumber;
+
+    public Client(String username, String password) {
+        super(username, password);
     }
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    public void setAdresa(String adresa) {
-        this.Adresa = adresa;
+
+    public void setAddress(String address) {
+        this.address = address;
     }
-    public String getAdresa() {
-        return Adresa;
+
+    public String getAddress() {
+        return address;
     }
-    public String getTelefon() {
-        return telefon;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
+
     @Override
     public String toString() {
         return "Client { " + username + " } ";
     }
-    public boolean equals(Object o){
-        if(o instanceof Client){
-            Client tmp = (Client)o;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Client) {
+            Client tmp = (Client) o;
             return tmp.username.equals(this.username);
-        }
-        else
+        } else
             return false;
     }
 }

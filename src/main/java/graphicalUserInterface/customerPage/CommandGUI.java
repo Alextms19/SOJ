@@ -19,7 +19,7 @@ public class CommandGUI {
         lblComandaInAstepatre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 28));
         lblComandaInAstepatre.setBounds(189, 116, 335, 72);
         jf.add(lblComandaInAstepatre);
-        JButton btnInapoi = new JButton("Inapoi");
+        JButton btnInapoi = new JButton("Back");
         btnInapoi.setBounds(288, 275, 115, 44);
 
         btnInapoi.addActionListener(new ActionListener() {

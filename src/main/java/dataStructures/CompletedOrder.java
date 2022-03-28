@@ -1,2 +1,4 @@
-package dataStructures;public class CompletedOrder {
+package dataStructures;
+
+public class CompletedOrder {
 }
