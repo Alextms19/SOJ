@@ -4,6 +4,8 @@ import dataStructures.Client;
 import dataStructures.Driver;
 import graphicalUserInterface.customerPage.CustomerGUI;
 import graphicalUserInterface.driverPage.DriverPage;
+import jsonClasses.JSONFile;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -28,7 +30,32 @@ public class AuthentificationGUI  {
     private JTextField t1;//camp nume
     private JPasswordField t2;//camp parola
     private static boolean flagFunction;
+    private boolean flagVerificaCredentiale1;
+    private boolean flagVerificaCredentiale2;
 
+    public static boolean isFlagFunction() {
+        return flagFunction;
+    }
+
+    public static void setFlagFunction(boolean flagFunction) {
+        flagFunction = flagFunction;
+    }
+
+    public boolean isFlagVerificaCredentiale1() {
+        return flagVerificaCredentiale1;
+    }
+
+    public void setFlagVerificaCredentiale1(boolean flagVerificaCredentiale1) {
+        this.flagVerificaCredentiale1 = flagVerificaCredentiale1;
+    }
+
+    public boolean isFlagVerificaCredentiale2() {
+        return flagVerificaCredentiale2;
+    }
+
+    public void setFlagVerificaCredentiale2(boolean flagVerificaCredentiale2) {
+        this.flagVerificaCredentiale2 = flagVerificaCredentiale2;
+    }
 
     public AuthentificationGUI() {
 
@@ -65,12 +92,14 @@ public class AuthentificationGUI  {
                 resetFields();
 
                 if(e.getSource() == b) {
-                    if (c.getPassword().equals("maxim") && (c.getUsername().equals("ana"))) {
+                    if(JSONFile.verificaCredentiale("src/main/resources/customers.json",c)) {
                         f.setVisible(false);
+                        flagVerificaCredentiale1 = true;
                         new CustomerGUI(c);
                     }
-                    else if(s.getPassword().equals("maximm") && (c.getUsername().equals("anaa"))) {
+                    else if(JSONFile.verificaCredentiale("src/main/resources/drivers.json",s)) {
                         f.setVisible(false);
+                        flagVerificaCredentiale2 = true;
                         new DriverPage(s);
                     }
                     else

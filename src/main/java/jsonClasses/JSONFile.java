@@ -173,9 +173,9 @@ public class JSONFile {
         return false;
     }
 
-    public static void main (String args []){
-        JSONFile.createCustomerFile();
-        JSONFile.createDriverFile();
-    }
+//    public static void main (String args []){
+//        JSONFile.createCustomerFile();
+//        JSONFile.createDriverFile();
+//    }
 }
 
