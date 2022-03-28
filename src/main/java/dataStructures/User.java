@@ -5,7 +5,8 @@ public abstract class User {
     protected String password;
     protected String CNP;
     private boolean flag;
-    public User(String username,String password) {
+
+    protected User(String username,String password) {
         this.username = username;
         this.password = password;
     }
@@ -18,7 +19,6 @@ public abstract class User {
     }
 
     public void setCNP(String CNP)  {
-
         this.CNP = CNP;
     }
 

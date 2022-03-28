@@ -1,40 +1,43 @@
 package dataStructures;
 
-public class Driver extends User{
-    private String numarInmatriculare;
-    private String masina;
-    public Driver(String username, String password){
-        super(username,password);
+public class Driver extends User {
+    private String licencePlate;
+    private String carModel;
+
+    public Driver(String username, String password) {
+        super(username, password);
     }
 
-    public String getNumarInmatriculare() {
-        return numarInmatriculare;
+    public String getLicencePlate() {
+        return licencePlate;
     }
 
-    public void setNumarInmatriculare(String numarInmatriculare) {
-        this.numarInmatriculare = numarInmatriculare;
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
     }
 
-    public String getMasina() {
-        return masina;
+    public String getCarModel() {
+        return carModel;
     }
 
-    public void setMasina(String masina) {
-        this.masina = masina;
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
     }
+
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Driver){
-            Driver aux=(Driver) o;
+    public boolean equals(Object o) {
+        if (o instanceof Driver) {
+            Driver aux = (Driver) o;
             return aux.getUsername().equals(this.getUsername());
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "Sofer{" +
-                "numarInmatriculare='" + numarInmatriculare + '\'' +
-                ", masina='" + masina + '\'' +
+                "numarInmatriculare='" + licencePlate + '\'' +
+                ", masina='" + carModel + '\'' +
                 '}';
     }
 }
