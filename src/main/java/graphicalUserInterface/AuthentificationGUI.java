@@ -63,6 +63,7 @@ public class AuthentificationGUI  {
                 Client c=new Client(s1,s2);
                 Driver s=new Driver(s1,s2);
                 resetFields();
+
                 if(e.getSource() == b) {
                     if (c.getPassword().equals("maxim") && (c.getUsername().equals("ana"))) {
                         f.setVisible(false);
