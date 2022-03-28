@@ -61,7 +61,7 @@ public class CustomerGUI {
             public void actionPerformed(ActionEvent e) {
                 flag3 = true;
                 f.setVisible(false);
-                new MyOrders(c);
+                new MyOrders(client);
             }
         });
         b2 = new JButton("New Order");
@@ -71,7 +71,7 @@ public class CustomerGUI {
             public void actionPerformed(ActionEvent e) {
                 flag1 = true;
                 f.setVisible(false);
-                new Review(c);
+                new Review(client);
             }
         });
         b4 = new JButton("Back");

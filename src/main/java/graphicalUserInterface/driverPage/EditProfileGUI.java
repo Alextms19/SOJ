@@ -1,5 +1,7 @@
 package graphicalUserInterface.driverPage;
 import dataStructures.Driver;
+import jsonClasses.JSONEditProfile;
+import jsonClasses.JSONFile;
 
 
 import javax.swing.*;
@@ -8,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 
 public class EditProfileGUI {
@@ -147,30 +150,58 @@ public class EditProfileGUI {
         textField.setBounds(110, 22, 96, 19);
         panel_1.add(textField);
         textField.setColumns(10);
-        textField.setText("anaa");
+        //textField.setText("anaa");
+        textField.setText(sofer.getUsername());
 
         passwordField = new JPasswordField();
         passwordField.setBounds(110, 77, 96, 19);
         panel_1.add(passwordField);
-        passwordField.setText("maximm");
+        //passwordField.setText("maximm");
+        passwordField.setText(sofer.getPassword());
 
         cnp = new JTextField();
         cnp.setBounds(335, 22, 96, 19);
         panel_1.add(cnp);
         cnp.setColumns(10);
-        cnp.setText("299129999");
+       // cnp.setText("299129999");
+        cnp.setText(sofer.getCNP());
 
         car = new JTextField();
         car.setBounds(335, 77, 96, 19);
         panel_1.add(car);
         car.setColumns(10);
-        car.setText("Renault");
+       // car.setText("Renault");
+        car.setText(sofer.getMasina());
 
         nri = new JTextField();
         nri.setBounds(216, 139, 96, 19);
         panel_1.add(nri);
         nri.setColumns(10);
-        nri.setText("AB11TBG");
+       // nri.setText("AB11TBG");
+        nri.setText(sofer.getNumarInmatriculare());
+
+        btnSalveazaModificari.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(passwordField.getText().equals("")==false) {
+                    ArrayList<Driver> soferi = JSONEditProfile.getDriver();
+                    soferi.remove(sofer);
+                    String nume, parola, CNP, masina, nr;
+                    nume = textField.getText();
+                    parola = passwordField.getText();
+                    CNP = cnp.getText();
+                    masina = car.getText();
+                    nr = nri.getText();
+                    Driver sof = new Driver(nume, JSONFile.encodePassword(nume, parola));
+                    sof.setNumarInmatriculare(nr);
+                    sof.setMasina(masina);
+                    sof.setCNP(CNP);
+                    soferi.add(sof);
+                    JSONEditProfile.writeDriver(soferi);
+                    frame.setVisible(false);
+                    new DriverPage(sof);
+                }
+            }
+        });
 
         btnInapoi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
