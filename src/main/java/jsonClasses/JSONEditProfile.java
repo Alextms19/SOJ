@@ -19,8 +19,8 @@ public class JSONEditProfile {
             obj.put("username",aux.getUsername());
             obj.put("password",aux.getPassword());
             obj.put("CNP",aux.getCNP());
-            obj.put("NumarInmatriculare",aux.getNumarInmatriculare());
-            obj.put("Masina", aux.getMasina());
+            obj.put("NumarInmatriculare",aux.getLicencePlate());
+            obj.put("Masina", aux.getCarModel());
             JSONObject obj1 = new JSONObject();
             obj1.put("customer :",obj);
             list.add(obj1);
@@ -41,9 +41,9 @@ public class JSONEditProfile {
             JSONObject obj = it.next();
             JSONObject objInt = (JSONObject) obj.get("customer :");
             Driver s=new Driver((String)objInt.get("username"),(String)objInt.get("password"));
-            s.setMasina((String)objInt.get("Masina"));
+            s.setCarModel((String)objInt.get("Masina"));
             s.setCNP((String)objInt.get("CNP"));
-            s.setNumarInmatriculare((String)objInt.get("NumarInmatriculare"));
+            s.setLicencePlate((String)objInt.get("NumarInmatriculare"));
             soferi.add(s);
         }
         return soferi;
