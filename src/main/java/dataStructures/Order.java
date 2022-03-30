@@ -11,9 +11,7 @@ public class Order {
 
     private String locationTo;
 
-    private double distanceInKm;
 
-    private double priceInRON;
 
 
 
@@ -30,8 +28,7 @@ public class Order {
         this.client = client;
         this.locationFrom = locationFrom;
         this.locationTo = locationTo;
-        this.distanceInKm = distanceInKm;
-        this.priceInRON = priceInRON;
+
     }
 
     public Order (Order order){
@@ -39,8 +36,7 @@ public class Order {
         this.client = order.getClient();
         this.locationFrom = order.getLocationFrom();
         this.locationTo = order.getLocationTo();
-        this.distanceInKm = order.getDistanceInKm();
-        this.priceInRON = order.getPriceInRON();
+
     }
 
     public LocalDateTime getOrderDateTime() {
@@ -75,21 +71,6 @@ public class Order {
         this.locationTo = locationTo;
     }
 
-    public double getDistanceInKm() {
-        return distanceInKm;
-    }
-
-    public void setDistanceInKm(double distanceInKm) {
-        this.distanceInKm = distanceInKm;
-    }
-
-    public double getPriceInRON() {
-        return priceInRON;
-    }
-
-    public void setPriceInRON(double priceInRON) {
-        this.priceInRON = priceInRON;
-    }
 
     @Override
     public String toString() {
@@ -98,8 +79,6 @@ public class Order {
                 ", client=" + client +
                 ", locationFrom='" + locationFrom + '\'' +
                 ", locationTo='" + locationTo + '\'' +
-                ", distanceInKm=" + distanceInKm +
-                ", priceInRON=" + priceInRON +
                 '}';
     }
 
