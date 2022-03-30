@@ -3,6 +3,7 @@ package parser;
 import dataStructures.CompletedOrder;
 import dataStructures.Order;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 import javax.management.modelmbean.XMLParseException;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,6 +15,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,45 +27,63 @@ public class Parser {
     private static List<Order> orders;
     private static List<CompletedOrder> completedOrders;
 
-    public static void readFromXML(String fileName) {
+    public static void readOrdersFromXML(String fileName) {
         orders = new ArrayList<>();
-
-        File inputFile = new File(fileName);
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder;
-
         try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document parsedDocument = documentBuilder.parse(inputFile);
-            parsedDocument.getDocumentElement().normalize();
-            NodeList nodeList = parsedDocument.getElementsByTagName("order") ;
-            for(int i =0; i < nodeList.getLength(); i++){
+            NodeList nodeList = getNodeList(fileName);
+            for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                if(!(node.getNodeType() == Node.ELEMENT_NODE)){
+                if (!(node.getNodeType() == Node.ELEMENT_NODE)) {
                     continue;
                 }
-                createJavaObject((Element) node);
-
+                orders.add(createOrderJavaObject((Element) node));
             }
 
-        } catch (Exception e){
-
-        } finally {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-    private static void createJavaObject(Element node) throws XMLParseException {
+    private static void readCompletedOrdersFromXML(String fileName) {
+        completedOrders = new ArrayList<>();
+        try {
+            NodeList nodeList = getNodeList(fileName);
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (!(node.getNodeType() == Node.ELEMENT_NODE)) {
+                    continue;
+                }
+                createCompletedOrderJavaObject((Element) node);
+                createOrderJavaObject((Element) node);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static NodeList getNodeList(String fileName) throws ParserConfigurationException, SAXException, IOException {
+        File inputFile = new File(fileName);
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder;
+        documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document parsedDocument = documentBuilder.parse(inputFile);
+        parsedDocument.getDocumentElement().normalize();
+        NodeList nodeList = parsedDocument.getElementsByTagName("order");
+        return nodeList;
+    }
+
+    private static Order createOrderJavaObject(Element node) throws XMLParseException {
         Element nodeElement = node;
         NodeList childNodeList = nodeElement.getChildNodes();
         Order order = new Order();
 
-        for (int i=0; i<childNodeList.getLength(); i++){
+        for (int i = 0; i < childNodeList.getLength(); i++) {
             Node childNode = childNodeList.item(i);
             switch (childNode.getNodeName()) {
                 case "client":
-                    // order.setClient(JSONClinetParser.findClient(childNode.getTextContent()));
+                    // order.setClient(JSONClientParser.findClient(childNode.getTextContent()));
                     break;
                 case "locationFrom":
                     order.setLocationFrom(childNode.getTextContent());
@@ -71,84 +91,189 @@ public class Parser {
                 case "locationTO":
                     order.setLocationTo(childNode.getTextContent());
                     break;
-                case  "orderDateTime":
+                case "orderDateTime":
                     order.setOrderDateTime(LocalDateTime.parse(childNode.getTextContent()));
-                    break;
-                case "princeInRON":
-                    order.setPriceInRON(Double.parseDouble(childNode.getTextContent()));
-                    break;
-                case "distance":
-                    order.setDistanceInKm((Double.parseDouble(childNode.getTextContent())));
                     break;
                 default:
                     System.out.println("wrong XML tags!");
                     throw new XMLParseException();
             }
         }
-        orders.add(order);
+        return order;
     }
 
-    public static void addOrderToXML(Order order){
+    private static CompletedOrder createCompletedOrderJavaObject(Element node) throws XMLParseException {
+        Element nodeElement = node;
+        NodeList childNodeList = nodeElement.getChildNodes();
+        CompletedOrder completedOrder = new CompletedOrder();
+
+        for (int i = 0; i < childNodeList.getLength(); i++) {
+            Node childNode = childNodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "distanceInKm":
+                    completedOrder.setDistanceInKm(Double.parseDouble(childNode.getTextContent()));
+                    break;
+                case "priceInRON":
+                    completedOrder.setPriceInRON(Double.parseDouble(childNode.getTextContent()));
+                    break;
+                case "driver":
+                    // order.setDriver(JSONDriverParser.findDriver(childNode.getTextContent()));
+                    break;
+                case "review":
+                    completedOrder.setReview(childNode.getTextContent());
+                    break;
+                default:
+                    System.out.println("wrong XML tags!");
+                    throw new XMLParseException();
+            }
+        }
+        completedOrder.setOrder(createOrderJavaObject(nodeElement));
+        return completedOrder;
+    }
+
+    public static void addOrderToXML(Order order) {
+        creatXMLElement("uncompleted", order);
+
+    }
+
+    private static Element creatXMLElement(String status, Order order) {
         Element orderElement = document.createElement("order");
         element.appendChild(orderElement);
 
-        Attr attr  = document.createAttribute("status");
-        attr.setValue("uncompleted");
+        Attr attr = document.createAttribute("status");
+        attr.setValue(status);
         element.setAttributeNode(attr);
 
-        Element clientElement = document.createElement("client");
-        clientElement.appendChild(document.createTextNode(order.getClient().getUsername()));
-        orderElement.appendChild(clientElement);
+        Element tmp = document.createElement("client");
+        tmp.appendChild(document.createTextNode(order.getClient().getUsername()));
+        orderElement.appendChild(tmp);
 
-        Element locationFromElement = document.createElement("locationFrom");
-        clientElement.appendChild(document.createTextNode(order.getLocationFrom()));
-        orderElement.appendChild(locationFromElement);
+        tmp = document.createElement("locationFrom");
+        tmp.appendChild(document.createTextNode(order.getLocationFrom()));
+        orderElement.appendChild(tmp);
 
-        Element locationToElement = document.createElement("locationTo");
-        clientElement.appendChild(document.createTextNode(order.getLocationTo()));
-        orderElement.appendChild(locationToElement);
+        tmp = document.createElement("locationTo");
+        tmp.appendChild(document.createTextNode(order.getLocationTo()));
+        orderElement.appendChild(tmp);
 
-        Element distanceElement = document.createElement("distance");
-        clientElement.appendChild(document.createTextNode(String.valueOf(order.getDistanceInKm())));
-        orderElement.appendChild(distanceElement);
+        tmp = document.createElement("orderDateTime");
+        tmp.appendChild(document.createTextNode(order.getOrderDateTime().toString()));
+        orderElement.appendChild(tmp);
 
-        Element dateTimeElement = document.createElement("orderDateTime");
-        clientElement.appendChild(document.createTextNode(order.getOrderDateTime().toString()));
-        orderElement.appendChild(dateTimeElement);
-
-        Element priceElement = document.createElement("princeInRON");
-        clientElement.appendChild(document.createTextNode(String.valueOf(order.getPriceInRON())));
-        orderElement.appendChild(priceElement);
+        return orderElement;
     }
 
     public static void addCompletedOrderToXML(CompletedOrder completedOrder) {
-        // TODO
+       Element completedOrderElement = creatXMLElement("completed", completedOrder);
+
+       Element tmp = document.createElement("distanceInKm");
+       tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));
+       completedOrderElement.appendChild(tmp);
+
+       tmp = document.createElement("priceInRON");
+       tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getPriceInRON())));
+       completedOrderElement.appendChild(tmp);
+
+       tmp = document.createElement("review");
+       tmp.appendChild(document.createTextNode(completedOrder.getReview()));
+       completedOrderElement.appendChild(tmp);
+
+       tmp = document.createElement("driver");
+       tmp.appendChild(document.createTextNode(completedOrder.getDriver().getUsername()));
+       completedOrderElement.appendChild(tmp);
+
     }
 
-    public static void createXML(Order order,String fileName) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            documentBuilder = factory.newDocumentBuilder();
-            document = documentBuilder.newDocument();
+    public static void createOrdersXML(Order order, String fileName) {
+        initilizeDocFactory();
 
-            element = document.createElement("orders");
-            document.appendChild(element);
-            readFromXML(fileName);
-            for(Order o : orders){
-                addOrderToXML(o);
-            }
-            addOrderToXML(order);
+        readOrdersFromXML(fileName);
+        for (Order o : orders) {
+            addOrderToXML(o);
+        }
+        addOrderToXML(order);
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(document);
+        transformFactoryFromFile(fileName);
+    }
 
-            StreamResult streamResult = new StreamResult(fileName);
-            transformer.transform(source, streamResult);
-        } catch (ParserConfigurationException | TransformerException e) {
-            // TODO Auto-generated catch block
+    private static void transformFactoryFromFile(String fileName)  {
+        try {TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = null;
+
+            transformer = transformerFactory.newTransformer();
+
+        DOMSource source = new DOMSource(document);
+
+        StreamResult streamResult = new StreamResult(fileName);
+        transformer.transform(source, streamResult);
+        } catch (TransformerException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void initilizeDocFactory()  {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            documentBuilder = factory.newDocumentBuilder();
+            document = documentBuilder.newDocument();
+            element = document.createElement("orders");
+            document.appendChild(element);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void createCompletedOrdersXML(CompletedOrder completedOrder, String fileName){
+        initilizeDocFactory();
+
+        readCompletedOrdersFromXML(fileName);
+        for (CompletedOrder cOrder: completedOrders) {
+            addCompletedOrderToXML(cOrder);
+        }
+        addCompletedOrderToXML(completedOrder);
+
+        transformFactoryFromFile(fileName);
+    }
+
+    public static List<CompletedOrder> getCompletedOrders(String fileName) {
+        if (completedOrders == null) {
+            readCompletedOrdersFromXML(fileName);
+        }
+        return completedOrders;
+    }
+
+    public static List<Order> getOrders(String fileName) {
+        if (orders == null) {
+            readOrdersFromXML(fileName);
+        }
+        return orders;
+    }
+
+    public static void deleteOrder(Order order, String fileName){
+        initilizeDocFactory();
+
+        readOrdersFromXML(fileName);
+        for(Order o: orders){
+            if(!o.equals(order)){
+                addOrderToXML(o);
+            }
+        }
+
+        transformFactoryFromFile(fileName);
+    }
+
+    public static void deleteCompletedOrder(CompletedOrder completedOrder, String fileName){
+        initilizeDocFactory();
+
+        readOrdersFromXML(fileName);
+        for(CompletedOrder o: completedOrders){
+            if(!o.equals(completedOrder)){
+                addCompletedOrderToXML(o);
+            }
+        }
+
+        transformFactoryFromFile(fileName);
     }
 
 }
