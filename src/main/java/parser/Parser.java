@@ -54,8 +54,7 @@ public class Parser {
                 if (!(node.getNodeType() == Node.ELEMENT_NODE)) {
                     continue;
                 }
-                createCompletedOrderJavaObject((Element) node);
-                createOrderJavaObject((Element) node);
+                completedOrders.add(createCompletedOrderJavaObject((Element) node));
             }
         } catch (Exception e) {
             e.printStackTrace();
