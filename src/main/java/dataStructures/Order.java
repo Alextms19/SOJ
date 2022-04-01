@@ -21,9 +21,8 @@ public class Order {
     public Order(LocalDateTime orderDateTime,
                  Client client,
                  String locationFrom,
-                 String locationTo,
-                 double distanceInKm,
-                 double priceInRON) {
+                 String locationTo
+               ) {
         this.orderDateTime = orderDateTime;
         this.client = client;
         this.locationFrom = locationFrom;
