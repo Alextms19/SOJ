@@ -28,7 +28,7 @@ public class DriverPage {
     private JButton inapoi;
     private boolean b1,b2,b3;
 
-    public static Driver getSofer(){
+    public static Driver getDriver(){
         return sofer;
     }
 

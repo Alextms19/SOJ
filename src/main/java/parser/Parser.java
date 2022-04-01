@@ -1,6 +1,8 @@
 package parser;
 
+import dataStructures.Client;
 import dataStructures.CompletedOrder;
+import dataStructures.Driver;
 import dataStructures.Order;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -26,6 +28,10 @@ public class Parser {
     private static Element element;
     private static List<Order> orders;
     private static List<CompletedOrder> completedOrders;
+
+    private Parser() {
+
+    }
 
     public static void readOrdersFromXML(String fileName) {
         orders = new ArrayList<>();
@@ -82,12 +88,12 @@ public class Parser {
             Node childNode = childNodeList.item(i);
             switch (childNode.getNodeName()) {
                 case "client":
-                    // order.setClient(JSONClientParser.findClient(childNode.getTextContent()));
+                    order.setClient(new Client(childNode.getTextContent(), childNode.getTextContent()));
                     break;
                 case "locationFrom":
                     order.setLocationFrom(childNode.getTextContent());
                     break;
-                case "locationTO":
+                case "locationTo":
                     order.setLocationTo(childNode.getTextContent());
                     break;
                 case "orderDateTime":
@@ -116,7 +122,7 @@ public class Parser {
                     completedOrder.setPriceInRON(Double.parseDouble(childNode.getTextContent()));
                     break;
                 case "driver":
-                    // order.setDriver(JSONDriverParser.findDriver(childNode.getTextContent()));
+                    completedOrder.setDriver(new Driver(childNode.getTextContent(), childNode.getTextContent()));
                     break;
                 case "review":
                     completedOrder.setReview(childNode.getTextContent());
@@ -131,11 +137,12 @@ public class Parser {
     }
 
     public static void addOrderToXML(Order order) {
-        creatXMLElement("uncompleted", order);
-
+        initilizeDocFactory();
+        createXMLOrderElement("uncompleted", order);
+        transformFactoryFromFile("src/main/resources/orders.xml");
     }
 
-    private static Element creatXMLElement(String status, Order order) {
+    private static Element createXMLOrderElement(String status, Order order) {
         Element orderElement = document.createElement("order");
         element.appendChild(orderElement);
 
@@ -163,24 +170,26 @@ public class Parser {
     }
 
     public static void addCompletedOrderToXML(CompletedOrder completedOrder) {
-       Element completedOrderElement = creatXMLElement("completed", completedOrder);
+        initilizeDocFactory();
+        Element completedOrderElement = createXMLOrderElement("completed", completedOrder);
 
-       Element tmp = document.createElement("distanceInKm");
-       tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));
-       completedOrderElement.appendChild(tmp);
+        Element tmp = document.createElement("distanceInKm");
+        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));
+        completedOrderElement.appendChild(tmp);
 
-       tmp = document.createElement("priceInRON");
-       tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getPriceInRON())));
-       completedOrderElement.appendChild(tmp);
+        tmp = document.createElement("priceInRON");
+        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getPriceInRON())));
+        completedOrderElement.appendChild(tmp);
 
-       tmp = document.createElement("review");
-       tmp.appendChild(document.createTextNode(completedOrder.getReview()));
-       completedOrderElement.appendChild(tmp);
+        tmp = document.createElement("review");
+        tmp.appendChild(document.createTextNode(completedOrder.getReview()));
+        completedOrderElement.appendChild(tmp);
 
-       tmp = document.createElement("driver");
-       tmp.appendChild(document.createTextNode(completedOrder.getDriver().getUsername()));
-       completedOrderElement.appendChild(tmp);
+        tmp = document.createElement("driver");
+        tmp.appendChild(document.createTextNode(completedOrder.getDriver().getUsername()));
+        completedOrderElement.appendChild(tmp);
 
+        transformFactoryFromFile("src/main/resources/completedOrders.xml");
     }
 
     public static void createOrdersXML(Order order, String fileName) {
@@ -195,39 +204,39 @@ public class Parser {
         transformFactoryFromFile(fileName);
     }
 
-    private static void transformFactoryFromFile(String fileName)  {
-        try {TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = null;
+    private static void transformFactoryFromFile(String fileName) {
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = null;
 
             transformer = transformerFactory.newTransformer();
 
-        DOMSource source = new DOMSource(document);
+            DOMSource source = new DOMSource(document);
 
-        StreamResult streamResult = new StreamResult(fileName);
-        transformer.transform(source, streamResult);
+            StreamResult streamResult = new StreamResult(fileName);
+            transformer.transform(source, streamResult);
         } catch (TransformerException e) {
             e.printStackTrace();
         }
     }
 
-    private static void initilizeDocFactory()  {
+    private static void initilizeDocFactory() {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             documentBuilder = factory.newDocumentBuilder();
             document = documentBuilder.newDocument();
             element = document.createElement("orders");
             document.appendChild(element);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void createCompletedOrdersXML(CompletedOrder completedOrder, String fileName){
+    public static void createCompletedOrdersXML(CompletedOrder completedOrder, String fileName) {
         initilizeDocFactory();
 
         readCompletedOrdersFromXML(fileName);
-        for (CompletedOrder cOrder: completedOrders) {
+        for (CompletedOrder cOrder : completedOrders) {
             addCompletedOrderToXML(cOrder);
         }
         addCompletedOrderToXML(completedOrder);
@@ -249,12 +258,12 @@ public class Parser {
         return orders;
     }
 
-    public static void deleteOrder(Order order, String fileName){
+    public static void deleteOrder(Order order, String fileName) {
         initilizeDocFactory();
 
         readOrdersFromXML(fileName);
-        for(Order o: orders){
-            if(!o.equals(order)){
+        for (Order o : orders) {
+            if (!o.equals(order)) {
                 addOrderToXML(o);
             }
         }
@@ -262,12 +271,12 @@ public class Parser {
         transformFactoryFromFile(fileName);
     }
 
-    public static void deleteCompletedOrder(CompletedOrder completedOrder, String fileName){
+    public static void deleteCompletedOrder(CompletedOrder completedOrder, String fileName) {
         initilizeDocFactory();
 
         readOrdersFromXML(fileName);
-        for(CompletedOrder o: completedOrders){
-            if(!o.equals(completedOrder)){
+        for (CompletedOrder o : completedOrders) {
+            if (!o.equals(completedOrder)) {
                 addCompletedOrderToXML(o);
             }
         }
