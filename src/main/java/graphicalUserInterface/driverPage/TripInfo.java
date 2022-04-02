@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class TripInfo {
     private JFrame frmTripInfo;
@@ -48,7 +49,7 @@ public class TripInfo {
             }
         });
 
-        btnBack = new JButton("Bach");
+        btnBack = new JButton("Back");
         btnBack.setBounds(152, 184, 115, 29);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -69,11 +70,11 @@ public class TripInfo {
         lblNewLabel_1.setBounds(82, 132, 136, 26);
         frmTripInfo.getContentPane().add(lblNewLabel_1);
 
-        JLabel lblNewLabel_2 = new JLabel(NumberFormat.getCurrencyInstance().format( distance * 4 ));
+        JLabel lblNewLabel_2 = new JLabel((((int)distance) * 3) + " minutes" );
         lblNewLabel_2.setBounds(261, 50, 69, 20);
         frmTripInfo.getContentPane().add(lblNewLabel_2);
 
-        JLabel lblNewLabel_3 = new JLabel(distance * 2 + " minutes");
+        JLabel lblNewLabel_3 = new JLabel(NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format( distance * 4 ));
         lblNewLabel_3.setBounds(261, 134, 69, 20);
         frmTripInfo.getContentPane().add(lblNewLabel_3);
     }

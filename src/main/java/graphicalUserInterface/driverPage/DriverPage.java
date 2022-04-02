@@ -1,6 +1,5 @@
 package graphicalUserInterface.driverPage;
 
-import dataStructures.CompletedOrder;
 import dataStructures.Driver;
 import graphicalUserInterface.AuthentificationGUI;
 import jsonClasses.JSONEditProfile;
@@ -17,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 
 public class DriverPage {
@@ -112,22 +110,11 @@ public class DriverPage {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 b3=true;
-                List<CompletedOrder> ef =parser.Parser.getCompletedOrders(
-                        "src/main/resources/completedOrders.xml");
-                Iterator<CompletedOrder> it=ef.iterator();
-                boolean c=false;
-                while(it.hasNext()){
-                    CompletedOrder com=it.next();
-                    if(com.getDriver().getUsername().equals(sofer.getUsername())){
-                        c=true;
-                        frame.setVisible(false);
-                        new InfoClient(com);
-                    }
-                }
-                if(c==false){
+
+
                     frame.setVisible(false);
                     parser.Parser.afisareXML();
-                }
+
             }
         });
 

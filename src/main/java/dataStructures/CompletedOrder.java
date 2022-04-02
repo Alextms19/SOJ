@@ -1,5 +1,7 @@
 package dataStructures;
 
+import java.time.LocalDateTime;
+
 public class CompletedOrder extends Order{
     private Driver driver;
     private String review;
@@ -59,6 +61,22 @@ public class CompletedOrder extends Order{
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Client getClient(){
+        return order.getClient();
+    }
+
+    public void setClient(Client client){
+        order.setClient(client);
+    }
+
+    public LocalDateTime getOrderDateTime(){
+        return order.getOrderDateTime();
+    }
+
+    public void setOrderDateTime(LocalDateTime localDateTime){
+        order.setOrderDateTime(localDateTime);
     }
 
     @Override

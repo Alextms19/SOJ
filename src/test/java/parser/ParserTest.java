@@ -17,13 +17,13 @@ public class ParserTest extends TestCase {
     }
 
     public void testAddOrderToXML() {
-        client = new Client("alex", "timus");
+        client = new Client("maria", "popescu");
         order = new Order(LocalDateTime.now(), client, "here", "there");
         Parser.addOrderToXML(order);
     }
 
     public void testAddCompletedOrderToXML() {
-        client = new Client("alex", "timus");
+        client = new Client("maria", "popescu");
         order = new Order(LocalDateTime.now(), client, "here", "there");
         driver = new Driver("ana", "maxim");
         completedOrder = new CompletedOrder(order, 1.24, 13.2, driver);
@@ -31,9 +31,9 @@ public class ParserTest extends TestCase {
     }
 
     public void testCreateOrdersXML() {
-        client = new Client("alex", "timus");
+        client = new Client("maria", "popescu");
         order = new Order(LocalDateTime.now(), client, "here", "there");
-        Parser.createOrdersXML(order, "src/main/resources/Orders.xml");
+        Parser.createOrdersXML(order, "src/main/resources/data.xml");
         Parser.addOrderToXML(order);
     }
 

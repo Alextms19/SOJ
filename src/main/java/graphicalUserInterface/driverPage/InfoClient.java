@@ -23,7 +23,7 @@ public class InfoClient {
     private JButton btnCompleteOrder;
     private JButton btnBack;
 
-    public InfoClient(Order order) {
+    public InfoClient(CompletedOrder order) {
         this.order = order;
          initialize();
     }
