@@ -12,9 +12,6 @@ public class Order {
     private String locationTo;
 
 
-
-
-
     public Order(){
 
     }

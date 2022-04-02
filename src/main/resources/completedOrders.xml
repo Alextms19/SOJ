@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><orders status="completed"><order><client>alex</client><locationFrom>here</locationFrom><locationTo>there</locationTo><orderDateTime>2022-04-02T14:35:50.523500900</orderDateTime><distanceInKm>13.2</distanceInKm><priceInRON>1.24</priceInRON><review/><driver>cristi</driver></order></orders>

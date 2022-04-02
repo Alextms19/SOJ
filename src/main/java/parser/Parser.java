@@ -4,6 +4,7 @@ import dataStructures.Client;
 import dataStructures.CompletedOrder;
 import dataStructures.Driver;
 import dataStructures.Order;
+import graphicalUserInterface.driverPage.OrdersList;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -140,6 +141,11 @@ public class Parser {
         initilizeDocFactory();
         createXMLOrderElement("uncompleted", order);
         transformFactoryFromFile("src/main/resources/orders.xml");
+    }
+
+    public static void afisareXML() {
+        readOrdersFromXML("src/main/resources/orders.xml");
+        new OrdersList(orders);
     }
 
     private static Element createXMLOrderElement(String status, Order order) {
