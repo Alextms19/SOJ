@@ -1,6 +1,7 @@
 package dataStructures;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Order {
     private LocalDateTime orderDateTime;
@@ -83,7 +84,11 @@ public class Order {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return orderDateTime.equals(order.orderDateTime) && client.equals(order.client) && locationFrom.equals(order.locationFrom) && locationTo.equals(order.locationTo);
+        return Objects.equals(orderDateTime, order.orderDateTime) && Objects.equals(client, order.client) && Objects.equals(locationFrom, order.locationFrom) && Objects.equals(locationTo, order.locationTo);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderDateTime, client, locationFrom, locationTo);
+    }
 }

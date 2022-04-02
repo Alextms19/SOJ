@@ -39,7 +39,7 @@ public class OrdersList {
      * Create the application.
      */
     public OrdersList(List<Order> orders) {
-        orders = orders;
+        this.orders = orders;
         initialize(orders);
     }
 
@@ -94,9 +94,9 @@ public class OrdersList {
                 try {
                     Order order = orders.get(number - 1);
                     CompletedOrder completedOrder = new CompletedOrder(order,  Math.random()*20, Math.random()*5,DriverPage.getDriver());
-                    parser.Parser.createCompletedOrdersXML(completedOrder, "src/main/resources/completed.xml");
+                    parser.Parser.createCompletedOrdersXML(completedOrder, "src/main/resources/completedOrders.xml");
                     parser.Parser.deleteOrder(order, "src/main/resources/data.xml");
-                    //new InfoClient(order);
+                    new InfoClient(completedOrder);
                     frame.setVisible(false);
                 } catch (IndexOutOfBoundsException e) {
                     JOptionPane.showMessageDialog(frame, "Index ilegal!Reintroduceti numarul.");
