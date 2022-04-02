@@ -25,7 +25,7 @@ public class ParserTest extends TestCase {
     public void testAddCompletedOrderToXML() {
         client = new Client("alex", "timus");
         order = new Order(LocalDateTime.now(), client, "here", "there");
-        driver = new Driver("cristi", "noPassword");
+        driver = new Driver("ana", "maxim");
         completedOrder = new CompletedOrder(order, 1.24, 13.2, driver);
         Parser.addCompletedOrderToXML(completedOrder);
     }

@@ -112,13 +112,13 @@ public class DriverPage {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 b3=true;
-                List <CompletedOrder> ef =parser.Parser.getCompletedOrders(
+                List<CompletedOrder> ef =parser.Parser.getCompletedOrders(
                         "src/main/resources/completedOrders.xml");
                 Iterator<CompletedOrder> it=ef.iterator();
                 boolean c=false;
                 while(it.hasNext()){
                     CompletedOrder com=it.next();
-                    if(com.getDriver().getUsername().equals(sofer.getUsername())&&com.getPriceInRON()==0){
+                    if(com.getDriver().getUsername().equals(sofer.getUsername())){
                         c=true;
                         frame.setVisible(false);
                         new InfoClient(com);

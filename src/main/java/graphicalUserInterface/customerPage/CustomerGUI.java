@@ -41,6 +41,11 @@ public class CustomerGUI {
         return flag3;
     }
 
+    public static boolean activ(){
+        flagFunction = true;
+        return f.isActive();
+    }
+
     public static void afiseaza(){
         flagFunction = true;
         f.setVisible(true);
