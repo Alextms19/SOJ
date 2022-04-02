@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ViewOrders {
 
@@ -62,8 +63,8 @@ public class ViewOrders {
                 "src/main/resources/completedOrders.xml");
         for (CompletedOrder com: completedOrders) {
             if(com.getDriver().getUsername().equals(driver.getUsername())){
-                data[contor][0]=com.getClient().getUsername();
-                data[contor][1]=com.getLocationTo();
+                data[contor][0]=com.getOrder().getClient().getUsername();
+                data[contor][1]=com.getOrder().getLocationTo();
                 data[contor][2]=com.getPriceInRON();
                 price+=(double) data[contor][2];
                 data[contor++][3]=com.getReview();
@@ -105,7 +106,7 @@ public class ViewOrders {
         lblMoneyAmount.setBounds(57, 0, 382, 34);
         panel.add(lblMoneyAmount);
 
-        JLabel lblPrice = new JLabel(NumberFormat.getCurrencyInstance().format(price));
+        JLabel lblPrice = new JLabel(NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(price));
         lblPrice.setFont(new Font("Times New Roman", Font.BOLD, 18));
         lblPrice.setForeground(new Color(255, 255, 255));
         lblPrice.setBounds(436, 5, 63, 24);

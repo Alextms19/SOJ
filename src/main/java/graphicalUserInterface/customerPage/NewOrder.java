@@ -1,6 +1,8 @@
 package graphicalUserInterface.customerPage;
 
 import dataStructures.Client;
+import dataStructures.Order;
+import parser.Parser;
 
 
 import javax.imageio.ImageIO;
@@ -13,6 +15,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewOrder {
     private Client client;
@@ -21,6 +26,7 @@ public class NewOrder {
     private JTextField textField_1;
     private String locatie;
     private String destinatie;
+    private List<Order> orders = new ArrayList<>();
 
     private boolean b3=false;
     private JButton btnContinuare;
@@ -159,6 +165,12 @@ public class NewOrder {
 
         btnContinuare.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                LocalDateTime now = LocalDateTime.now();
+                locatie = textField.getText();
+                destinatie = textField_1.getText();
+                Order order = new Order(now, client, locatie, destinatie);
+                orders.add(order);
+                Parser.createOrdersXML(order, "src/main/resources/data.xml");
                 frame.setVisible(false);
                 new CommandGUI(client);
                 textField.setText("");

@@ -101,8 +101,8 @@ public class Parser {
                     order.setOrderDateTime(LocalDateTime.parse(childNode.getTextContent()));
                     break;
                 default:
-                    System.out.println("wrong XML tags!");
-                    throw new XMLParseException();
+
+
             }
         }
         return order;
@@ -129,8 +129,8 @@ public class Parser {
                     completedOrder.setReview(childNode.getTextContent());
                     break;
                 default:
-                    System.out.println("wrong XML tags!");
-                    throw new XMLParseException();
+
+
             }
         }
         completedOrder.setOrder(createOrderJavaObject(nodeElement));
@@ -140,11 +140,11 @@ public class Parser {
     public static void addOrderToXML(Order order) {
         initilizeDocFactory();
         createXMLOrderElement("uncompleted", order);
-        transformFactoryFromFile("src/main/resources/orders.xml");
+        transformFactoryFromFile("src/main/resources/data.xml");
     }
 
     public static void afisareXML() {
-        readOrdersFromXML("src/main/resources/orders.xml");
+        readOrdersFromXML("src/main/resources/data.xml");
         new OrdersList(orders);
     }
 
@@ -251,16 +251,16 @@ public class Parser {
     }
 
     public static List<CompletedOrder> getCompletedOrders(String fileName) {
-        if (completedOrders == null) {
+
             readCompletedOrdersFromXML(fileName);
-        }
+
         return completedOrders;
     }
 
     public static List<Order> getOrders(String fileName) {
-        if (orders == null) {
+
             readOrdersFromXML(fileName);
-        }
+
         return orders;
     }
 
