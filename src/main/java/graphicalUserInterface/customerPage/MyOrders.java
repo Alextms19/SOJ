@@ -44,7 +44,7 @@ public class MyOrders {
     public MyOrders(Client client) {
         this.client = client;
         flag = true;
-        comandaDeAfisat = Parser.getEfectuate("src/main/resources/completedOrders.xml");
+        comandaDeAfisat = Parser.getCompletedOrders("src/main/resources/completedOrders.xml");
         if (comandaDeAfisat != null) {
             int i = 0,size = 0;
             flag0 = true;

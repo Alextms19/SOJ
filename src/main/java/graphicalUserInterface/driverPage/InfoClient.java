@@ -147,6 +147,8 @@ public class InfoClient {
             public void actionPerformed(ActionEvent e) {
                 b1=true;
                 frame.setVisible(false);
+                parser.Parser.createCompletedOrdersXML(completedOrder, "src/main/resources/completedOrders.xml");
+                parser.Parser.deleteOrder(completedOrder.getOrder(), "src/main/resources/data.xml");
                 new TripInfo(completedOrder.getDistanceInKm());
             }
         });

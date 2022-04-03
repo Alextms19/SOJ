@@ -110,10 +110,8 @@ public class DriverPage {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 b3=true;
-
-
                     frame.setVisible(false);
-                    parser.Parser.afisareXML();
+                    parser.Parser.showXML();
 
             }
         });

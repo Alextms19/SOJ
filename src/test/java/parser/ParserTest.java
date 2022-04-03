@@ -16,42 +16,13 @@ public class ParserTest extends TestCase {
     CompletedOrder completedOrder;
     Client client;
     Driver driver;
-    public void testReadOrdersFromXML() {
-    }
 
-    public void testAddOrderToXML() {
-        client = new Client("maria", "popescu");
-        order = new Order(LocalDateTime.now(), client, "here", "there");
-        Parser.addOrderToXML(order);
-        boolean isPresent = false;
-        for (Order o: Parser.getOrders(SRC_TEST_RESOURCES_DATA_XML)) {
-            if(o.equals(order)){
-                isPresent = true;
-            }
-        }
-        assertTrue(isPresent);
-    }
-
-    public void testAddCompletedOrderToXML() {
-        client = new Client("maria", "popescu");
-        order = new Order(LocalDateTime.now(), client, "here", "there");
-        driver = new Driver("ana", "maxim");
-        completedOrder = new CompletedOrder(order, 1.24, 13.2, driver);
-        Parser.addCompletedOrderToXML(completedOrder);
-        boolean isPresent = false;
-        for (CompletedOrder o: Parser.getCompletedOrders(SRC_TEST_RESOURCES_COMPLETED_ORDERS_XML)) {
-            if(o.equals(completedOrder)){
-                isPresent = true;
-            }
-        }
-        assertTrue(isPresent);
-    }
 
     public void testCreateOrdersXML() {
         client = new Client("maria", "popescu");
         order = new Order(LocalDateTime.now(), client, "here", "there");
         Parser.createOrdersXML(order, SRC_TEST_RESOURCES_DATA_XML);
-        Parser.addOrderToXML(order);
+
     }
 
     public void testCreateCompletedOrdersXML() {

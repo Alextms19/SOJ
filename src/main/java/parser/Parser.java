@@ -10,7 +10,6 @@ import jsonClasses.JSONEditProfile;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import javax.management.modelmbean.XMLParseException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,16 +27,143 @@ import java.util.Objects;
 
 public class Parser {
     private static Document document;
-    private static DocumentBuilder documentBuilder;
     private static Element element;
     private static List<Order> orders;
     private static List<CompletedOrder> completedOrders;
 
+    /**
+     * Created private constructor to hide implicit one
+     */
     private Parser() {
 
     }
 
-    public static void readOrdersFromXML(String fileName) {
+    /**
+     * Delete Order
+     * This function will receive an order and will delete it from the file if it exists
+     * @param order the order to delete
+     * @param fileName fileName from which order should be deleted
+     */
+    public static void deleteOrder(Order order, String fileName) {
+        initializeDocFactory();
+
+        readOrdersFromXML(fileName);
+        for (Order o : orders) {
+            if (!o.equals(order)) {
+                addOrderToXML(o);
+            }
+        }
+
+        transformFactoryFromFile(fileName);
+    }
+
+    /**
+     * Add Order to XML
+     * @param order that needs to be added to XML file
+     */
+    private static void addOrderToXML(Order order) {
+        createXMLOrderElement("uncompleted", order);
+    }
+
+    /**
+     * Add Completed Order to XML
+     * @param completedOrder the completed order that needs to be added.
+     */
+    private static void addCompletedOrderToXML(CompletedOrder completedOrder) {
+
+        Element completedOrderElement = createXMLOrderElement("completed", completedOrder.getOrder());
+
+        Element tmp = document.createElement("distanceInKm");
+        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));
+        completedOrderElement.appendChild(tmp);
+
+        tmp = document.createElement("priceInRON");
+        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getPriceInRON())));
+        completedOrderElement.appendChild(tmp);
+
+        tmp = document.createElement("review");
+        tmp.appendChild(document.createTextNode(completedOrder.getReview()));
+        completedOrderElement.appendChild(tmp);
+
+        tmp = document.createElement("driver");
+        tmp.appendChild(document.createTextNode(completedOrder.getDriver().getUsername()));
+        completedOrderElement.appendChild(tmp);
+
+
+    }
+
+    /**
+     * Create Orders XML, will create Orders and add them to the file that was passed
+     * @param order the order that needs to be added
+     * @param fileName filename that needs to be added the order
+     */
+    public static void createOrdersXML(Order order, String fileName) {
+        initializeDocFactory();
+
+        readOrdersFromXML(fileName);
+        for (Order o : orders) {
+            addOrderToXML(o);
+        }
+        addOrderToXML(order);
+
+        transformFactoryFromFile(fileName);
+    }
+
+    /**
+     * Create Completed Orders XML, will create Completed Orders and add them to the file that was passed
+     * @param completedOrder the completed order that needs to be added
+     * @param fileName filename that needs to be added the completed order
+     */
+    public static void createCompletedOrdersXML(CompletedOrder completedOrder, String fileName) {
+        initializeDocFactory();
+
+        readCompletedOrdersFromXML(fileName);
+        for (CompletedOrder cOrder : completedOrders) {
+            addCompletedOrderToXML(cOrder);
+        }
+        addCompletedOrderToXML(completedOrder);
+
+        transformFactoryFromFile(fileName);
+    }
+
+    /**
+     * Get Completed Orders
+     * @param fileName from which completed orders need to be read and returned as Java Objects
+     * @return list of CompletedOrder from file
+     */
+    public static List<CompletedOrder> getCompletedOrders(String fileName) {
+            readCompletedOrdersFromXML(fileName);
+        return completedOrders;
+    }
+
+    /**
+     * Get Orders
+     * @param fileName from which  orders need to be read and returned as Java Objects
+     * @return list of Order from file
+     */
+    public static List<Order> getOrders(String fileName) {
+            readOrdersFromXML(fileName);
+        return orders;
+    }
+
+    /**
+     * Used to open Order List tab with all uncompleted orders.
+     * @see OrdersList
+     */
+    public static void showXML() {
+        readOrdersFromXML("src/main/resources/data.xml");
+        new OrdersList(orders);
+    }
+
+    /**
+     * Read Orders From XML
+     * This function will read Orders and add them to Order List
+     * which can be accessed with
+     * @function getOrders(filename);
+     * @param fileName the file from which the orders will be read
+     *
+     */
+    private static void readOrdersFromXML(String fileName) {
         orders = new ArrayList<>();
         try {
             NodeList nodeList = getNodeList(fileName);
@@ -55,6 +181,14 @@ public class Parser {
 
     }
 
+    /**
+     * Read Completed Orders From XML
+     * This function will read Orders and add them to Order List
+     * which can be accessed with
+     * @function getCompletedOrders(filename);
+     * @param fileName the file from which the orders will be read
+     *
+     */
     private static void readCompletedOrdersFromXML(String fileName) {
         completedOrders = new ArrayList<>();
         try {
@@ -72,22 +206,13 @@ public class Parser {
 
     }
 
-    public static void deleteOrder(Order order, String fileName) {
-        initilizeDocFactory();
-
-        readOrdersFromXML(fileName);
-        for (Order o : orders) {
-            if (!o.equals(order)) {
-                addOrderToXML(o);
-            }
-        }
-
-        transformFactoryFromFile(fileName);
-    }
-
-    private static CompletedOrder createCompletedOrderJavaObject(Element node) throws XMLParseException {
-        Element nodeElement = node;
-        NodeList childNodeList = nodeElement.getChildNodes();
+    /**
+     * Create Completed Order Java Object
+     * @param node xml Element that contains data that Java Object needs to be created from
+     * @return the Completed Order Object from data provided (if missing will be null)
+     */
+    private static CompletedOrder createCompletedOrderJavaObject(Element node) {
+        NodeList childNodeList = node.getChildNodes();
         CompletedOrder completedOrder = new CompletedOrder();
 
         for (int i = 0; i < childNodeList.getLength(); i++) {
@@ -110,16 +235,16 @@ public class Parser {
 
             }
         }
-        completedOrder.setOrder(createOrderJavaObject(nodeElement));
+        completedOrder.setOrder(createOrderJavaObject(node));
         return completedOrder;
     }
 
-    public static void addOrderToXML(Order order) {
-
-        createXMLOrderElement("uncompleted", order);
-
-    }
-
+    /**
+     * create XML Order Element
+     * @param status status if it's un/completed
+     * @param order the
+     * @return the xml Element that contains provided data
+     */
     private static Element createXMLOrderElement(String status, Order order) {
         Element orderElement = document.createElement("order");
         element.appendChild(orderElement);
@@ -147,79 +272,14 @@ public class Parser {
         return orderElement;
     }
 
-    public static void addCompletedOrderToXML(CompletedOrder completedOrder) {
-
-        Element completedOrderElement = createXMLOrderElement("completed", completedOrder.getOrder());
-
-        Element tmp = document.createElement("distanceInKm");
-        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));
-        completedOrderElement.appendChild(tmp);
-
-        tmp = document.createElement("priceInRON");
-        tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getPriceInRON())));
-        completedOrderElement.appendChild(tmp);
-
-        tmp = document.createElement("review");
-        tmp.appendChild(document.createTextNode(completedOrder.getReview()));
-        completedOrderElement.appendChild(tmp);
-
-        tmp = document.createElement("driver");
-        tmp.appendChild(document.createTextNode(completedOrder.getDriver().getUsername()));
-        completedOrderElement.appendChild(tmp);
-
-
-    }
-
-    public static void createOrdersXML(Order order, String fileName) {
-        initilizeDocFactory();
-
-        readOrdersFromXML(fileName);
-        for (Order o : orders) {
-            addOrderToXML(o);
-        }
-        addOrderToXML(order);
-
-        transformFactoryFromFile(fileName);
-    }
-
-    public static void createCompletedOrdersXML(CompletedOrder completedOrder, String fileName) {
-        initilizeDocFactory();
-
-        readCompletedOrdersFromXML(fileName);
-        for (CompletedOrder cOrder : completedOrders) {
-            addCompletedOrderToXML(cOrder);
-        }
-        addCompletedOrderToXML(completedOrder);
-
-        transformFactoryFromFile(fileName);
-    }
-
-    public static List<CompletedOrder> getCompletedOrders(String fileName) {
-            readCompletedOrdersFromXML(fileName);
-        return completedOrders;
-    }
-
-    public static List<Order> getOrders(String fileName) {
-            readOrdersFromXML(fileName);
-        return orders;
-    }
-
-    public static void afisareXML() {
-        readOrdersFromXML("src/main/resources/data.xml");
-        new OrdersList(orders);
-    }
-
-    public static List<CompletedOrder> getEfectuate(String fileName) {
-        readCompletedOrdersFromXML(fileName);
-        return completedOrders;
-    }
-
-    public static List<Order> getNepreluata(String fileName){
-        readOrdersFromXML(fileName);
-        return orders;
-    }
-
-
+    /**
+     * get Node List of type order
+     * @param fileName the file name from which orders need to be read
+     * @return NodeList with all element of type order
+     * @throws ParserConfigurationException ' '
+     * @throws SAXException ' '
+     * @throws IOException ' '
+     */
     private static NodeList getNodeList(String fileName) throws ParserConfigurationException, SAXException, IOException {
         File inputFile = new File(fileName);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -227,13 +287,16 @@ public class Parser {
         documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document parsedDocument = documentBuilder.parse(inputFile);
         parsedDocument.getDocumentElement().normalize();
-        NodeList nodeList = parsedDocument.getElementsByTagName("order");
-        return nodeList;
+        return parsedDocument.getElementsByTagName("order");
     }
 
-    private static Order createOrderJavaObject(Element node) throws XMLParseException {
-        Element nodeElement = node;
-        NodeList childNodeList = nodeElement.getChildNodes();
+    /**
+     * Create Order Java Object
+     * @param node xml Element that contains data that Java Object needs to be created from
+     * @return the Order Object from data provided (if missing will be null)
+     */
+    private static Order createOrderJavaObject(Element node) {
+        NodeList childNodeList = node.getChildNodes();
         Order order = new Order();
 
         for (int i = 0; i < childNodeList.getLength(); i++) {
@@ -259,10 +322,13 @@ public class Parser {
         return order;
     }
 
-    private static void initilizeDocFactory() {
+    /**
+     * initialize document factory to which will be added elements under the "orders" tag
+     */
+    private static void initializeDocFactory() {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            documentBuilder = factory.newDocumentBuilder();
+            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             document = documentBuilder.newDocument();
             element = document.createElement("orders");
             document.appendChild(element);
@@ -271,6 +337,10 @@ public class Parser {
         }
     }
 
+    /**
+     * close session with file and write data to that file from Document source
+     * @param fileName the file to which data should be written.
+     */
     private static void transformFactoryFromFile(String fileName) {
         try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
