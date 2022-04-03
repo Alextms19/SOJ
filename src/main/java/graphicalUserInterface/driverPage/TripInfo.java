@@ -25,7 +25,7 @@ public class TripInfo {
 
 
     public TripInfo(double distance) {
-        this.distance = distance;
+        this.distance = distance+1;
         initialize();
         frmTripInfo.setVisible(true);
     }

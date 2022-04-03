@@ -51,7 +51,7 @@ public class CompletedGUI {
 
     public CompletedGUI(Client client) {
         this.client = client;
-        List<CompletedOrder> ce = Parser.getEfectuate("src/main/resources/completed.xml");
+        List<CompletedOrder> ce = Parser.getCompletedOrders("src/main/resources/completedOrders.xml");
         for(CompletedOrder tmp: ce)
             if(tmp.getClient().getUsername().equals(client.getUsername())){
                 usernameSofer = tmp.getDriver().getUsername();

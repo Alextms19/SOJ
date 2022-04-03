@@ -94,7 +94,7 @@ public class NewOrder {
         panel_1.add(panel_2);
         panel_2.setLayout(null);
 
-        JLabel lblLocatieCurenta = new JLabel("current Location");
+        JLabel lblLocatieCurenta = new JLabel("Current Location");
         lblLocatieCurenta.setFont(new Font("Times New Roman", Font.BOLD, 18));
         lblLocatieCurenta.setForeground(new Color(255, 255, 255));
         lblLocatieCurenta.setBounds(23, 21, 146, 29);
@@ -148,7 +148,7 @@ public class NewOrder {
         btnContinuare = new JButton("Continue");
         btnContinuare.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnContinuare.setBounds(181, 157, 132, 21);
-        btnInapoi = new JButton("Inapoi");
+        btnInapoi = new JButton("Back");
         btnInapoi.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnInapoi.setBounds(181, 199, 132, 21);
 

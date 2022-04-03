@@ -95,8 +95,6 @@ public class OrdersList {
                     Order order = orders.get(number - 1);
                     double distanceInKm = Math.random() * 5;
                     CompletedOrder completedOrder = new CompletedOrder(order,  distanceInKm*4, distanceInKm,DriverPage.getDriver());
-                    parser.Parser.createCompletedOrdersXML(completedOrder, "src/main/resources/completedOrders.xml");
-                    parser.Parser.deleteOrder(order, "src/main/resources/data.xml");
                     new InfoClient(completedOrder);
                     frame.setVisible(false);
                 } catch (IndexOutOfBoundsException e) {
@@ -105,7 +103,7 @@ public class OrdersList {
             }
         });
 
-        btnInapoi = new JButton("Inapoi");
+        btnInapoi = new JButton("Back");
         btnInapoi.setBounds(255, 289, 115, 29);
         frame.getContentPane().add(btnInapoi);
 

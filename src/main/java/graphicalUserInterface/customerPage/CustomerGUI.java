@@ -91,7 +91,7 @@ public class CustomerGUI {
     }
 
     public boolean find(String filename){
-        List<Order> aux = Parser.getNepreluata(filename);
+        List<Order> aux = Parser.getOrders(filename);
         for(Order tmp: aux)
             if(tmp.getClient().equals(client)&&CommandGUI.checkTime(tmp)==true)
                 return true;
@@ -99,9 +99,9 @@ public class CustomerGUI {
     }
 
     public boolean check(String fileName){
-        List<CompletedOrder> aux = Parser.getEfectuate(fileName);
+        List<CompletedOrder> aux = Parser.getCompletedOrders(fileName);
         for(CompletedOrder tmp: aux)
-            if(tmp.getClient().equals(client)&&tmp.getDistanceInKm()==0)
+            if(tmp.getClient().equals(client))
                 return true;
         return false;
     }
