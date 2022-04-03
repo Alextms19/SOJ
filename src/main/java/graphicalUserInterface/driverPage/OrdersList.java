@@ -47,7 +47,7 @@ public class OrdersList {
      * Initialize the contents of the frame.
      */
     private void initialize(List<Order> cn) {
-        frame = new JFrame("preluati comanda");
+        frame = new JFrame("Take Order");
         frame.getContentPane().setBackground(new Color(0, 123, 123));
         frame.getContentPane().setForeground(Color.BLACK);
         frame.setBounds(100, 100, 502, 337);
@@ -55,7 +55,7 @@ public class OrdersList {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame, "Leave" +
-                        " ?", "Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?", "Confirm exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else
@@ -74,7 +74,7 @@ public class OrdersList {
         int i = 0;
         for (Order tmp : cn) {
             if (CommandGUI.checkTime(tmp))
-                l1.addElement("Preluati comanda " + " " + (++i) + " " + tmp.toString());
+                l1.addElement("Take Order " + " " + (++i) + " " + tmp.toString());
         }
         JList list = new JList(l1);
         list.setBackground(new Color(0, 153, 153));
@@ -84,7 +84,7 @@ public class OrdersList {
         textPane.setBounds(391, 247, 30, 26);
         frame.getContentPane().add(textPane);
 
-        lblNewLabel = new JButton("Preluati comanda");
+        lblNewLabel = new JButton("Take Order");
         lblNewLabel.setBounds(245, 239, 141, 34);
         frame.getContentPane().add(lblNewLabel);
         lblNewLabel.addActionListener(new ActionListener() {
@@ -100,7 +100,7 @@ public class OrdersList {
                     new InfoClient(completedOrder);
                     frame.setVisible(false);
                 } catch (IndexOutOfBoundsException e) {
-                    JOptionPane.showMessageDialog(frame, "Index ilegal!Reintroduceti numarul.");
+                    JOptionPane.showMessageDialog(frame, "please choose existing number of the order");
                 }
             }
         });

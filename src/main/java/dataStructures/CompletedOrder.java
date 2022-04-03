@@ -1,6 +1,7 @@
 package dataStructures;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class CompletedOrder extends Order{
     private Driver driver;
@@ -79,12 +80,33 @@ public class CompletedOrder extends Order{
         order.setOrderDateTime(localDateTime);
     }
 
+
     @Override
     public String toString() {
         return "CompletedOrder{" +
-                "order=" + super.toString() +
-                ", driver=" + driver +
+                "driver=" + driver +
                 ", review='" + review + '\'' +
+                ", distanceInKm=" + distanceInKm +
+                ", priceInRON=" + priceInRON +
+                ", order=" + order +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CompletedOrder)) return false;
+        if (!super.equals(o)) return false;
+        CompletedOrder that = (CompletedOrder) o;
+        return Double.compare(that.distanceInKm, distanceInKm) == 0
+                && Double.compare(that.priceInRON, priceInRON) == 0
+                && Objects.equals(driver, that.driver)
+                && Objects.equals(review, that.review)
+                && Objects.equals(order, that.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), driver, review, distanceInKm, priceInRON, order);
     }
 }
