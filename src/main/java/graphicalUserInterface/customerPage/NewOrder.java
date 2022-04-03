@@ -67,7 +67,7 @@ public class NewOrder {
 
     private void initialize() {
         frame = new JFrame();
-        frame.getContentPane().setBackground(new Color(255, 140, 0));
+        frame.getContentPane().setBackground(new Color(75, 180, 240));
         frame.getContentPane().setLayout(null);
         frame.setVisible(true);
         JLabel lblComandaNoua = new JLabel("Comanda Noua");
@@ -119,11 +119,11 @@ public class NewOrder {
 
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/main/resources/drive.jpg"));
+            img = ImageIO.read(new File("src/main/resources/poza.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(250, 250,Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(280, 300,Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         JPanel panel_3 = new JPanel();
         panel_3.setBounds(40, 60, 250, 250);

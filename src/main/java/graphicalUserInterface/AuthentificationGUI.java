@@ -114,11 +114,11 @@ public class AuthentificationGUI  {
 
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/main/resources/uber.png"));
+            img = ImageIO.read(new File("src/main/resources/poza.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(450, 250,Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(300, 300,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(dimg);
         l5 = new JLabel(icon);
         l5.setBounds(80, 80, 250, 250);

@@ -71,7 +71,7 @@ public class EditProfileGUI {
         frame.setBounds(100, 100, 550, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
-        frame.getContentPane().setBackground(new Color(255, 165, 0));
+        frame.getContentPane().setBackground(new Color(75, 180, 240));
         frame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {
             @Override

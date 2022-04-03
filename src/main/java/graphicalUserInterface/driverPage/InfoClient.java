@@ -69,7 +69,7 @@ public class InfoClient {
         frame.setVisible(true);
         frame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 16));
         frame.getContentPane().setForeground(new Color(0, 0, 128));
-        frame.getContentPane().setBackground(new Color (255, 165,0));
+        frame.getContentPane().setBackground(new Color(75, 180, 240));
         frame.getContentPane().setLayout(null);
         frame.addWindowListener(new WindowAdapter() {
             @Override

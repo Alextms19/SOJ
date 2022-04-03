@@ -109,7 +109,7 @@ public class CustomerGUI {
     public CustomerGUI(Client c){
         client=c;
         f = new JFrame("Customer's page");
-        f.getContentPane().setBackground(new Color(44, 224, 174));
+        f.getContentPane().setBackground(new Color(75, 180, 240));
         b1 = new JButton("My Orders");
         b1.addActionListener(new ActionListener() {
             @Override
@@ -137,11 +137,11 @@ public class CustomerGUI {
         });
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/main/resources/drive.jpg"));
+            img = ImageIO.read(new File("src/main/resources/poza.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(250, 250,Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(300, 300,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(dimg);
         l2 = new JLabel(icon);
         l2.setBounds(40, 60, 250, 250);

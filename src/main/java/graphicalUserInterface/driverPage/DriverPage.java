@@ -69,7 +69,7 @@ public class DriverPage {
         frame.getContentPane().setLayout(null);
         frame.setVisible(true);
 
-        frame.getContentPane().setBackground(new Color(255, 165, 0));
+        frame.getContentPane().setBackground(new Color(75, 180, 240));
 
 
         edit=new JButton("Edit profile");
@@ -153,12 +153,12 @@ public class DriverPage {
         west.setBounds(80, 50, 260, 260);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/main/resources/drive.jpg"));
+            img = ImageIO.read(new File("src/main/resources/poza.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         JLabel aux=new JLabel();
-        Image dimg = img.getScaledInstance(250, 250,Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(300, 300,Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         aux.setBounds(60, 100, 250, 250);
         aux.setIcon(imageIcon);
