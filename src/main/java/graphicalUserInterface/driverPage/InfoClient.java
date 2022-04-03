@@ -114,7 +114,7 @@ public class InfoClient {
         lblNume.setBounds(56, 23, 46, 16);
         panel_2.add(lblNume);
 
-        JLabel lblTelefon = new JLabel("Phone Number:");
+        JLabel lblTelefon = new JLabel("Phone:");
         lblTelefon.setForeground(new Color(255, 255, 255));
         lblTelefon.setFont(new Font("Times New Roman", Font.BOLD, 16));
         lblTelefon.setBounds(56, 67, 109, 20);

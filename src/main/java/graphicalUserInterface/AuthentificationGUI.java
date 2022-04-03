@@ -30,6 +30,7 @@ public class AuthentificationGUI  {
     private JButton b;//button
     private JTextField t1;//camp nume
     private JPasswordField t2;//camp parola
+    private boolean flagB;//flag testare aparitie pop-up
     private static boolean flagFunction;
     private boolean flagVerificaCredentiale1;
     private boolean flagVerificaCredentiale2;
@@ -57,6 +58,27 @@ public class AuthentificationGUI  {
     public void setFlagVerificaCredentiale2(boolean flagVerificaCredentiale2) {
         this.flagVerificaCredentiale2 = flagVerificaCredentiale2;
     }
+
+    public boolean isFlagB() {
+        return flagB;
+    }
+
+    public void setFlagB(boolean flagB) {
+        this.flagB = flagB;
+    }
+
+    public JButton getB() {
+        return b;
+    }
+
+    public JTextField getT1() {
+        return t1;
+    }
+
+    public JPasswordField getT2() {
+        return t2;
+    }
+
 
     public AuthentificationGUI() {
         JSONCreate.secure();
@@ -90,6 +112,7 @@ public class AuthentificationGUI  {
                 String s2 = t2.getText();
                 Client c=new Client(s1,s2);
                 Driver s=new Driver(s1,s2);
+                flagB = true;
                 resetFields();
 
                 if(e.getSource() == b) {
