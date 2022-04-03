@@ -20,18 +20,29 @@ import java.util.List;
 
 public class CustomerGUI {
     private Client client;
+    private static Client ocupat;
     private static JFrame f;
     private JButton b1,b2,b3,b4;
     private JLabel l1,l2;
-    private boolean flag1, flag2, flag3;
-    private static boolean flagFunction, flagFunction1;
+    private boolean flag1, flag2, flag3, flag4;
+    private static boolean flagFunction, flagFunction1, flagFunction0, flagFunction2;
 
     public static boolean isFlagFunction() {
         return flagFunction;
     }
 
+    public static boolean isFlagFunction0() {
+        return flagFunction0;
+    }
+
     public static boolean isFlagFunction1() {
+
         return flagFunction1;
+    }
+
+    public static boolean isFlagFunction2() {
+
+        return flagFunction2;
     }
 
     public boolean isFlag1() {
@@ -46,16 +57,34 @@ public class CustomerGUI {
         return flag3;
     }
 
-    public static boolean activ(){
-        flagFunction = true;
-        return f.isActive();
+    public boolean isFlag4() {
+        return flag4;
+    }
+
+    public JButton getB1() {
+        return b1;
+    }
+
+    public JButton getB2() {
+        return b2;
+    }
+
+    public JButton getB3() {
+        return b3;
+    }
+
+    public JButton getB4() {
+        return b4;
     }
 
     public static void afiseaza(){
         flagFunction = true;
         f.setVisible(true);
     }
-
+    public static boolean activ(){
+        flagFunction0 = true;
+        return f.isActive();
+    }
     public static void ascunde(){
         flagFunction1 = true;
         f.setVisible(false);
@@ -85,7 +114,7 @@ public class CustomerGUI {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                flag3 = true;
+                flag1 = true;
                 f.setVisible(false);
                 new MyOrders(client);
             }
@@ -149,5 +178,10 @@ public class CustomerGUI {
         f.setLayout(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
+    }
+
+    public static void setOcupat(Client ocupat) {
+        flagFunction2 = true;
+        CustomerGUI.ocupat = ocupat;
     }
 }
