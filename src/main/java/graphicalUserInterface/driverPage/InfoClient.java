@@ -2,9 +2,7 @@ package graphicalUserInterface.driverPage;
 
 import dataStructures.Client;
 import dataStructures.CompletedOrder;
-import dataStructures.Order;
 import jsonClasses.JSONClient;
-import parser.Parser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +14,15 @@ import java.util.List;
 
 public class InfoClient {
     private static JFrame frame;
-    private Order order;
+    private CompletedOrder completedOrder;
     private Client client;
     private boolean b1 = false;
     private boolean b2 = false;
     private JButton btnCompleteOrder;
     private JButton btnBack;
 
-    public InfoClient(CompletedOrder order) {
-        this.order = order;
+    public InfoClient(CompletedOrder completedOrder) {
+        this.completedOrder = completedOrder;
          initialize();
     }
 
@@ -54,7 +52,7 @@ public class InfoClient {
     }
 
     public void searchClient() {
-        String name = order.getClient().getUsername();
+        String name = completedOrder.getClient().getUsername();
         List<Client> clients = JSONClient.getClient();
 
         for (Client c : clients) {
@@ -148,12 +146,8 @@ public class InfoClient {
         btnCompleteOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 b1=true;
-                double distance = Math.random()*5;
-                CompletedOrder completedOrder = new CompletedOrder(order, Math.random()*20, distance, DriverPage.getDriver());
-                Parser.deleteCompletedOrder("src/main/resources/completedOrders.xml");
-                Parser.createCompletedOrdersXML(completedOrder,"src/main/resources/completedOrders.xml");
                 frame.setVisible(false);
-                new TripInfo(distance);
+                new TripInfo(completedOrder.getDistanceInKm());
             }
         });
         btnCompleteOrder.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -185,13 +179,13 @@ public class InfoClient {
         lblNewLabel_4.setBounds(418, 22, 109, 19);
         panel_2.add(lblNewLabel_4);
 
-        JLabel lblNewLabel_5 = new JLabel(order.getLocationFrom());
+        JLabel lblNewLabel_5 = new JLabel(completedOrder.getOrder().getLocationFrom());
         lblNewLabel_5.setForeground(new Color(255, 255, 255));
         lblNewLabel_5.setFont(new Font("Times New Roman", Font.BOLD, 16));
         lblNewLabel_5.setBounds(424, 67, 118, 20);
         panel_2.add(lblNewLabel_5);
 
-        JLabel lblNewLabel_6 = new JLabel(order.getLocationTo());
+        JLabel lblNewLabel_6 = new JLabel(completedOrder.getOrder().getLocationTo());
         lblNewLabel_6.setForeground(new Color(255, 255, 255));
         lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 16));
         lblNewLabel_6.setBounds(424, 118, 103, 22);

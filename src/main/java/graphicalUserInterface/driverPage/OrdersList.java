@@ -93,7 +93,8 @@ public class OrdersList {
                 int number = Integer.parseInt(textPane.getText());
                 try {
                     Order order = orders.get(number - 1);
-                    CompletedOrder completedOrder = new CompletedOrder(order,  Math.random()*20, Math.random()*5,DriverPage.getDriver());
+                    double distanceInKm = Math.random() * 5;
+                    CompletedOrder completedOrder = new CompletedOrder(order,  distanceInKm*4, distanceInKm,DriverPage.getDriver());
                     parser.Parser.createCompletedOrdersXML(completedOrder, "src/main/resources/completedOrders.xml");
                     parser.Parser.deleteOrder(order, "src/main/resources/data.xml");
                     new InfoClient(completedOrder);
