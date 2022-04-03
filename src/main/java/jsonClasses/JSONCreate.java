@@ -15,7 +15,7 @@ public class JSONCreate {
         createDriverFile("src/main/resources/drivers.json");
     }
 
-    private static void createCustomerFile(String filename) {
+    public static void createCustomerFile(String filename) {
         JSONObject obj1 = new JSONObject();
         obj1.put("username", "maria");
         obj1.put("password", encodePassword("maria","popescu"));
@@ -68,14 +68,14 @@ public class JSONCreate {
         list.add(obj9);
         list.add(obj10);
         try {
-            FileWriter file = new FileWriter("src/customers.json");
+            FileWriter file = new FileWriter(filename);
             file.write(list.toJSONString());
             file.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private static void createDriverFile(String filename) {
+    public static void createDriverFile(String filename) {
         JSONObject obj1 = new JSONObject();
         obj1.put("username", "alex");
         obj1.put("password", encodePassword("alex","pop"));
@@ -118,7 +118,7 @@ public class JSONCreate {
         list.add(obj8);
         list.add(obj9);
         try {
-            FileWriter file = new FileWriter("src/drivers.json");
+            FileWriter file = new FileWriter(filename);
             file.write(list.toJSONString());
             file.flush();
         } catch (IOException e) {
