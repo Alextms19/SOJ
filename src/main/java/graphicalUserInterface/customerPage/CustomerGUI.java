@@ -157,7 +157,7 @@ public class CustomerGUI {
                 f.setVisible(false);
                 if(find("src/main/resources/data.xml"))
                     new CommandGUI(client);
-                else if(check("src/main/resources/completed.xml"))
+                else if(check("src/main/resources/completedOrders.xml"))
                     new CompletedGUI(client);
                 else
                     new NewOrder(client);

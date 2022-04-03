@@ -8,6 +8,11 @@ public class Client extends User {
     public Client(String username, String password) {
         super(username, password);
     }
+    public Client (Client client){
+        super(client.username, client.password);
+        this.address = client.address;
+        this.phoneNumber = client.phoneNumber;
+    }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

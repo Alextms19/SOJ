@@ -150,7 +150,7 @@ public class InfoClient {
                 b1=true;
                 double distance = Math.random()*5;
                 CompletedOrder completedOrder = new CompletedOrder(order, Math.random()*20, distance, DriverPage.getDriver());
-                Parser.deleteCompletedOrder(completedOrder,"src/main/resources/completedOrders.xml");
+                Parser.deleteCompletedOrder("src/main/resources/completedOrders.xml");
                 Parser.createCompletedOrdersXML(completedOrder,"src/main/resources/completedOrders.xml");
                 frame.setVisible(false);
                 new TripInfo(distance);

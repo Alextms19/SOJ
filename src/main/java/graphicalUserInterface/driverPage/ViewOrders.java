@@ -65,8 +65,8 @@ public class ViewOrders {
             if(com.getDriver().getUsername().equals(driver.getUsername())){
                 data[contor][0]=com.getOrder().getClient().getUsername();
                 data[contor][1]=com.getOrder().getLocationTo();
-                data[contor][2]=com.getPriceInRON();
-                price+=(double) data[contor][2];
+                data[contor][2]=NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(com.getPriceInRON());
+                price+=com.getPriceInRON();
                 data[contor++][3]=com.getReview();
             }
         }

@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><orders/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><orders status="uncompleted"><order><client>maria</client><locationFrom>here</locationFrom><locationTo>there</locationTo><orderDateTime>2022-04-03T17:37:27.579650800</orderDateTime></order></orders>
