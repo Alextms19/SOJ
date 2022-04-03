@@ -162,7 +162,7 @@ public class Parser {
 
     public static void addCompletedOrderToXML(CompletedOrder completedOrder) {
 
-        Element completedOrderElement = createXMLOrderElement("completed", completedOrder);
+        Element completedOrderElement = createXMLOrderElement("completed", completedOrder.getOrder());
 
         Element tmp = document.createElement("distanceInKm");
         tmp.appendChild(document.createTextNode(String.valueOf(completedOrder.getDistanceInKm())));

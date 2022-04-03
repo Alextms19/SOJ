@@ -23,7 +23,7 @@ public class InfoClient {
     private JButton btnCompleteOrder;
     private JButton btnBack;
 
-    public InfoClient(CompletedOrder order) {
+    public InfoClient(Order order) {
         this.order = order;
          initialize();
     }
@@ -149,7 +149,7 @@ public class InfoClient {
             public void actionPerformed(ActionEvent e) {
                 b1=true;
                 double distance = Math.random()*5;
-                CompletedOrder completedOrder = new CompletedOrder(order, Math.random()*20, distance, DriverPage.getDriver());
+                CompletedOrder completedOrder = new CompletedOrder(order, distance*4, distance, DriverPage.getDriver());
                 Parser.deleteCompletedOrder("src/main/resources/completedOrders.xml");
                 Parser.createCompletedOrdersXML(completedOrder,"src/main/resources/completedOrders.xml");
                 frame.setVisible(false);

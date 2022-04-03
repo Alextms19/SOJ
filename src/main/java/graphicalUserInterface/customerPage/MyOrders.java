@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MyOrders {
     private Client client;
@@ -42,7 +44,7 @@ public class MyOrders {
     public MyOrders(Client client) {
         this.client = client;
         flag = true;
-        comandaDeAfisat = Parser.getEfectuate("src/main/resources/completed.xml");
+        comandaDeAfisat = Parser.getEfectuate("src/main/resources/completedOrders.xml");
         if (comandaDeAfisat != null) {
             int i = 0,size = 0;
             flag0 = true;
@@ -56,7 +58,7 @@ public class MyOrders {
                 if (tmp.getClient().equals(client)) {
                     campuriComanda[i][0] = tmp.getLocationTo();
                     campuriComanda[i][1] = tmp.getDistanceInKm();
-                    campuriComanda[i][2] = tmp.getPriceInRON();
+                    campuriComanda[i][2] = NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(tmp.getPriceInRON());
                     campuriComanda[i][3] = tmp.getDriver().getUsername();
                     campuriComanda[i++][4] = tmp.getReview();
                 }
