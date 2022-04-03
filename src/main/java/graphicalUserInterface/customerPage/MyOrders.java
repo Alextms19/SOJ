@@ -56,8 +56,8 @@ public class MyOrders {
             campuriComanda = new Object[size][5];
             for (CompletedOrder tmp : comandaDeAfisat) {
                 if (tmp.getClient().equals(client)) {
-                    campuriComanda[i][0] = tmp.getLocationTo();
-                    campuriComanda[i][1] = tmp.getDistanceInKm();
+                    campuriComanda[i][0] = tmp.getOrder().getLocationTo();
+                    campuriComanda[i][1] = String.format("%.2f", tmp.getDistanceInKm());
                     campuriComanda[i][2] = NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(tmp.getPriceInRON());
                     campuriComanda[i][3] = tmp.getDriver().getUsername();
                     campuriComanda[i++][4] = tmp.getReview();
