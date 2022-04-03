@@ -196,7 +196,7 @@ public class EditProfileGUI {
                     sof.setCarModel(masina);
                     sof.setCNP(CNP);
                     soferi.add(sof);
-                    JSONEditProfile.writeDriver(soferi);
+                    JSONEditProfile.writeDriver("src/main/resources/drivers.json", soferi);
                     frame.setVisible(false);
                     new DriverPage(sof);
                 }

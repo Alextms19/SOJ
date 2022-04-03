@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class JSONEditProfile {
-    public static void writeDriver(ArrayList<Driver> soferi){
+    public static void writeDriver(String filename, ArrayList<Driver> soferi){
         JSONArray list = new JSONArray();
         Iterator<Driver> it=soferi.iterator();
         while(it.hasNext()){
@@ -26,7 +26,7 @@ public class JSONEditProfile {
             list.add(obj1);
         }
         try {
-            FileWriter file = new FileWriter("src/drivers.json");
+            FileWriter file = new FileWriter(filename);
             file.write(list.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -34,7 +34,7 @@ public class JSONEditProfile {
         }
     }
     public static ArrayList<Driver> getDriver(){
-        JSONArray list=JSONFile.readFromFiles("src/drivers.json");
+        JSONArray list=JSONFile.readFromFiles("src/main/resources/drivers.json");
         ArrayList<Driver> soferi=new ArrayList<Driver>();
         Iterator<JSONObject> it=list.iterator();
         while(it.hasNext()) {
@@ -47,6 +47,13 @@ public class JSONEditProfile {
             soferi.add(s);
         }
         return soferi;
+    }
+    public static Driver getSofer(String user){
+        ArrayList<Driver> listaSoferi = getDriver();
+        for(Driver tmp: listaSoferi)
+            if(tmp.getUsername().equals(user))
+                return tmp;
+        return null;
     }
 
 }
