@@ -91,15 +91,6 @@ public class CustomerGUI {
             }
         });
         b2 = new JButton("New Order");
-        b3 = new JButton("Write a review");
-        b3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                flag1 = true;
-                f.setVisible(false);
-                new Review(client);
-            }
-        });
         b4 = new JButton("Back");
         l1 = new JLabel("Customer's page");
         l1.setBounds(225, 0, 300, 50);
@@ -107,7 +98,6 @@ public class CustomerGUI {
         l1.setForeground(Color.blue);
         b1.setBounds(350,200,210,30);
         b2.setBounds(350,150,210,30);
-        b3.setBounds(350,100,210,30);
         b4.setBounds(350,250,210,30);
         b4.addActionListener(new ActionListener() {
             @Override
@@ -131,7 +121,6 @@ public class CustomerGUI {
         f.add(l2);
         f.add(b1);
         f.add(b2);
-        f.add(b3);
         f.add(b4);
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
