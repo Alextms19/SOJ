@@ -71,11 +71,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderDateTime=" + orderDateTime +
-                ", client=" + client +
-                ", locationFrom='" + locationFrom + '\'' +
-                ", locationTo='" + locationTo + '\'' +
+        return "Client " + client.getUsername().toUpperCase() +
+                ", From " + locationFrom +
+                ", To " + locationTo +
+                ", Time " + orderDateTime.getHour() +":"+ orderDateTime.getMinute() +
                 '}';
     }
 

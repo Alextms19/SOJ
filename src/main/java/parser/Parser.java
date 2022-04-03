@@ -85,19 +85,6 @@ public class Parser {
         transformFactoryFromFile(fileName);
     }
 
-    public static void deleteCompletedOrder(String fileName) {
-        initilizeDocFactory();
-
-        readCompletedOrdersFromXML(fileName);
-        for (CompletedOrder o : completedOrders) {
-            if (o.getPriceInRON() != 0) {
-                addCompletedOrderToXML(o);
-            }
-        }
-
-        transformFactoryFromFile(fileName);
-    }
-
     private static CompletedOrder createCompletedOrderJavaObject(Element node) throws XMLParseException {
         Element nodeElement = node;
         NodeList childNodeList = nodeElement.getChildNodes();

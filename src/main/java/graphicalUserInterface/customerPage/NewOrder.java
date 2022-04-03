@@ -70,7 +70,7 @@ public class NewOrder {
         frame.getContentPane().setBackground(new Color(75, 180, 240));
         frame.getContentPane().setLayout(null);
         frame.setVisible(true);
-        JLabel lblComandaNoua = new JLabel("Comanda Noua");
+        JLabel lblComandaNoua = new JLabel("New Order");
         lblComandaNoua.setForeground(new Color(255,255,255));
         lblComandaNoua.setFont(new Font("Showcard Gothic", Font.PLAIN, 24));
         lblComandaNoua.setBounds(235, 10, 233, 29);
@@ -94,13 +94,13 @@ public class NewOrder {
         panel_1.add(panel_2);
         panel_2.setLayout(null);
 
-        JLabel lblLocatieCurenta = new JLabel("Locatie curenta");
+        JLabel lblLocatieCurenta = new JLabel("current Location");
         lblLocatieCurenta.setFont(new Font("Times New Roman", Font.BOLD, 18));
         lblLocatieCurenta.setForeground(new Color(255, 255, 255));
         lblLocatieCurenta.setBounds(23, 21, 146, 29);
         panel_2.add(lblLocatieCurenta);
 
-        JLabel lblDestinatie = new JLabel("Destinatie");
+        JLabel lblDestinatie = new JLabel("Destination");
         lblDestinatie.setFont(new Font("Times New Roman", Font.BOLD, 18));
         lblDestinatie.setForeground(new Color(255, 255, 255));
         lblDestinatie.setBounds(26, 81, 122, 20);
@@ -137,7 +137,7 @@ public class NewOrder {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else
@@ -145,7 +145,7 @@ public class NewOrder {
             }
         });
 
-        btnContinuare = new JButton("Continuare");
+        btnContinuare = new JButton("Continue");
         btnContinuare.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnContinuare.setBounds(181, 157, 132, 21);
         btnInapoi = new JButton("Inapoi");

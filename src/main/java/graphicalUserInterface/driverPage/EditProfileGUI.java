@@ -77,7 +77,7 @@ public class EditProfileGUI {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else
@@ -90,19 +90,19 @@ public class EditProfileGUI {
         frame.getContentPane().add(panel);
         panel.setLayout(null);
 
-        JLabel lblEditeazaProfilul = new JLabel("Editeaza Profilul");
+        JLabel lblEditeazaProfilul = new JLabel("Edit Profile");
         lblEditeazaProfilul.setBounds(168, 10, 197, 20);
         panel.add(lblEditeazaProfilul);
         lblEditeazaProfilul.setForeground(new Color(255, 255, 255));
         lblEditeazaProfilul.setFont(new Font("Showcard Gothic", Font.PLAIN, 18));
 
-        btnSalveazaModificari = new JButton("Salveaza modificari");
+        btnSalveazaModificari = new JButton("Save changes");
         btnSalveazaModificari.setForeground(new Color(0, 0, 128));
         btnSalveazaModificari.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnSalveazaModificari.setBounds(290, 307, 176, 32);
         frame.getContentPane().add(btnSalveazaModificari);
 
-        btnInapoi = new JButton("Inapoi");
+        btnInapoi = new JButton("Back");
         btnInapoi.setForeground(new Color(0, 0, 128));
         btnInapoi.setFont(new Font("Times New Roman", Font.BOLD, 16));
         btnInapoi.setBounds(65, 307, 176, 32);
@@ -120,7 +120,7 @@ public class EditProfileGUI {
         lblUsername.setForeground(new Color(255, 255, 255));
         lblUsername.setFont(new Font("Times New Roman", Font.BOLD, 18));
 
-        JLabel lblParola = new JLabel("Parola");
+        JLabel lblParola = new JLabel("Password");
         lblParola.setBounds(10, 71, 79, 26);
         panel_1.add(lblParola);
         lblParola.setForeground(new Color(255, 255, 255));
@@ -133,14 +133,14 @@ public class EditProfileGUI {
         lblCnp.setFont(new Font("Times New Roman", Font.BOLD, 16));
 
 
-        JLabel lblMasina = new JLabel("Masina");
+        JLabel lblMasina = new JLabel("Car");
         lblMasina.setBounds(240, 71, 112, 27);
         panel_1.add(lblMasina);
         lblMasina.setForeground(new Color(255, 255, 255));
         lblMasina.setFont(new Font("Times New Roman", Font.BOLD, 18));
 
 
-        JLabel lblNumarInmatriculare = new JLabel("Numar Inmatriculare");
+        JLabel lblNumarInmatriculare = new JLabel("Licence Plate");
         lblNumarInmatriculare.setBounds(10, 133, 196, 27);
         panel_1.add(lblNumarInmatriculare);
         lblNumarInmatriculare.setForeground(new Color(255, 255, 255));

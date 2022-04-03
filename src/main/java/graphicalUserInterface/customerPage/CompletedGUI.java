@@ -1,9 +1,8 @@
 package graphicalUserInterface.customerPage;
 
+import dataStructures.Client;
 import dataStructures.CompletedOrder;
 import parser.Parser;
-import dataStructures.Client;
-import dataStructures.Order;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,18 +61,18 @@ public class CompletedGUI {
     }
 
     private void initialize() {
-        frame = new JFrame("comanda se finalizeaza");
+        frame = new JFrame("Finalize Order");
         frame.getContentPane().setFont(new Font("Wide Latin", Font.PLAIN, 22));
         frame.getContentPane().setBackground(new Color(127, 255, 212));
         frame.getContentPane().setLayout(null);
 
-        JLabel lblComandaInAstepatre = new JLabel("Comanda in curs de finalizare");
+        JLabel lblComandaInAstepatre = new JLabel("Order in finalization");
         lblComandaInAstepatre.setForeground(new Color(65, 105, 225));
         lblComandaInAstepatre.setFont(new Font("Wide Latin", Font.BOLD | Font.ITALIC, 24));
         lblComandaInAstepatre.setBounds(15, 28, 637, 75);
         frame.getContentPane().add(lblComandaInAstepatre);
 
-        JLabel lblNumeSofer = new JLabel("Nume sofer:");
+        JLabel lblNumeSofer = new JLabel("Driver Name:");
         lblNumeSofer.setFont(new Font("Wide Latin", Font.ITALIC, 22));
         lblNumeSofer.setBounds(46, 119, 392, 44);
         frame.getContentPane().add(lblNumeSofer);
@@ -94,7 +93,7 @@ public class CompletedGUI {
         frame.getContentPane().add(label);
 
 
-        btnInapoi = new JButton("Inapoi");
+        btnInapoi = new JButton("Back");
         btnInapoi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 flagInapoi = true;
@@ -105,7 +104,7 @@ public class CompletedGUI {
         btnInapoi.setBounds(175, 287, 115, 44);
         frame.getContentPane().add(btnInapoi);
 
-        btnInainte = new JButton("Inainte");
+        btnInainte = new JButton("Forward");
         btnInainte.setBounds(389, 288, 115, 42);
         btnInainte.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -120,7 +119,7 @@ public class CompletedGUI {
             @Override
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(frame,"Leave" +
-                        " ?","Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                        " ?","Confirm exit :", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION)
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 else

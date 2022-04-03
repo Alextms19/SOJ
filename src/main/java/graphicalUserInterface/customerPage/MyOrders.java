@@ -64,18 +64,18 @@ public class MyOrders {
                 }
             }
 
-            frame = new JFrame("Comenzile mele");
+            frame = new JFrame("My Orders");
             frame.getContentPane().setBackground(SystemColor.activeCaption);
             frame.setBounds(100, 100, 700, 400);
             frame.getContentPane().setLayout(null);
 
-            JLabel lblComenzileMele = new JLabel("Comenzile Mele");
+            JLabel lblComenzileMele = new JLabel("My Orders");
             lblComenzileMele.setFont(new Font("Bernard MT Condensed", Font.BOLD, 22));
             lblComenzileMele.setBounds(264, 16, 158, 45);
             frame.getContentPane().add(lblComenzileMele);
 
 
-            btnInapoi = new JButton("Inapoi");
+            btnInapoi = new JButton("Back");
             btnInapoi.setBounds(275, 265, 115, 29);
             btnInapoi.addActionListener(new ActionListener() {
                 @Override
@@ -99,14 +99,14 @@ public class MyOrders {
             table.setModel(new DefaultTableModel(
                     campuriComanda,
                     new String[]{
-                            "Destinatie", "Distanta", "Pret", "Sofer","Recenzie"
+                            "Destination", "Distance", "Price", "Driver","Review"
                     }
             ));
             frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     int result = JOptionPane.showConfirmDialog(frame, "Leave" +
-                            " ?", "Confirmare iesire :", JOptionPane.YES_NO_OPTION);
+                            " ?", "Confirm exit :", JOptionPane.YES_NO_OPTION);
                     if (result == JOptionPane.YES_OPTION)
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     else
