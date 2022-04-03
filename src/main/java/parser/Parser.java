@@ -148,6 +148,16 @@ public class Parser {
         new OrdersList(orders);
     }
 
+    public static List<CompletedOrder> getEfectuate(String fileName) {
+        readCompletedOrdersFromXML(fileName);
+        return completedOrders;
+    }
+
+    public static List<Order> getNepreluata(String fileName){
+        readOrdersFromXML(fileName);
+        return orders;
+    }
+
     private static Element createXMLOrderElement(String status, Order order) {
         Element orderElement = document.createElement("order");
         element.appendChild(orderElement);

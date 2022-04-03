@@ -1,7 +1,11 @@
 package graphicalUserInterface.customerPage;
 
 import dataStructures.Client;
+import dataStructures.CompletedOrder;
+import dataStructures.Order;
 import graphicalUserInterface.AuthentificationGUI;
+import parser.Parser;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class CustomerGUI {
     private Client client;
@@ -54,6 +59,22 @@ public class CustomerGUI {
     public static void ascunde(){
         flagFunction1 = true;
         f.setVisible(false);
+    }
+
+    public boolean find(String filename){
+        List<Order> aux = Parser.getNepreluata(filename);
+        for(Order tmp: aux)
+            if(tmp.getClient().equals(client)&&CommandGUI.checkTime(tmp)==true)
+                return true;
+        return false;
+    }
+
+    public boolean check(String fileName){
+        List<CompletedOrder> aux = Parser.getEfectuate(fileName);
+        for(CompletedOrder tmp: aux)
+            if(tmp.getClient().equals(client)&&tmp.getDistanceInKm()==0)
+                return true;
+        return false;
     }
 
     public CustomerGUI(Client c){
@@ -116,7 +137,12 @@ public class CustomerGUI {
             public void actionPerformed(ActionEvent e) {
                 flag2 = true;
                 f.setVisible(false);
-                new NewOrder(client);
+                if(find("src/main/resources/data.xml"))
+                    new CommandGUI(client);
+                else if(check("src/main/resources/completed.xml"))
+                    new CompletedGUI(client);
+                else
+                    new NewOrder(client);
             }
         });
         f.addWindowListener(new WindowAdapter() {
